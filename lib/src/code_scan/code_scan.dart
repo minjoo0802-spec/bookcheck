@@ -51,7 +51,7 @@ class _CodeScanState extends State<CodeScan> {
       child: _camState
           ? Center(
               child: SizedBox(
-                height: 1000,
+                height: 450,
                 width: 500,
                 child: QRBarScannerCamera(
                   onError: (context, error) => Text(
@@ -92,6 +92,16 @@ class _CodeScanState extends State<CodeScan> {
     ));
   }
 
+  Widget InfoMessage() {
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      child: Text(
+        "책의 바코드 또는 QR 코드를 스캔해주세요 !",
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +110,7 @@ class _CodeScanState extends State<CodeScan> {
         child: Column(children: <Widget>[
           Search(),
           Camera(),
+          InfoMessage(),
         ]),
       ),
     );

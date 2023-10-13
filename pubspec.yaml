@@ -37,6 +37,7 @@ dependencies:
   get: ^4.6.5
   flutter_qr_bar_scanner: ^3.0.2
   carousel_slider: ^4.2.1
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +65,7 @@ flutter:
     - assets/images/bottom_nav_icon/
     - assets/images/ad_banner_image/
     - assets/images/app_bar_icon/
-    - assets/images/point_shop_image
+    - assets/images/pointshop_image/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

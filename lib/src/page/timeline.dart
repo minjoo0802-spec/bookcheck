@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../components/image_data.dart';
-
 class TimeLine extends StatefulWidget {
   const TimeLine({super.key});
 

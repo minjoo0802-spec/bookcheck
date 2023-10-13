@@ -27,18 +27,10 @@ class App extends GetView<BottomNavController> {
           body: IndexedStack(
             index: controller.pageIndex.value,
             children: [
-              Container(
-                child: CodeScan(),
-              ),
-              Container(
-                child: TimeLine(),
-              ),
-              Container(
-                child: Shop(),
-              ),
-              Container(
-                child: MyBookShelf(),
-              ),
+              CodeScan(),
+              TimeLine(),
+              Shop(),
+              MyBookShelf(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
