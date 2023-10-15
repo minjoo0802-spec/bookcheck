@@ -66,6 +66,7 @@ flutter:
     - assets/images/ad_banner_image/
     - assets/images/app_bar_icon/
     - assets/images/pointshop_image/
+    - assets/images/my_bookshelf_image/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
