@@ -8,11 +8,7 @@ class MyBookShelf extends StatefulWidget {
 }
 
 class _MyBookShelfState extends State<MyBookShelf> {
-
-  final List<Map> booktool = [
-    
-  ];
-
+  final List<Map> booktool = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +16,18 @@ class _MyBookShelfState extends State<MyBookShelf> {
       home: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Scaffold(
-          body: GridView.builder(
-            itemCount: 12,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1 /1.5,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,), 
-            itemBuilder: (BuildContext context, int index) {
-            return Container(
-              color: Colors.black12,
-              child: Text('Item : $index'),
-            );
-          }),
+          body: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(20),
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 2,
+              childAspectRatio: 1 / 1.3,
+              children: <Widget>[
+                Container(
+                  child: Text("11"),
+                ),
+              ]),
         ),
       ),
     );
