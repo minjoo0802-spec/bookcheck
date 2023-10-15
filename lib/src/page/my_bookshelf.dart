@@ -22,7 +22,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               crossAxisCount: 3,
-              childAspectRatio: 1 / 1.3,
+              childAspectRatio: 1 / 1.7,
               children: <Widget>[
                 Container(
                   child: Container(
@@ -46,13 +46,78 @@ class _MyBookShelfState extends State<MyBookShelf> {
                           child: Image(
                             image: AssetImage(
                                 'assets/images/my_bookshelf_image/book_sample.jpg'),
-                            height: 115,
                             fit: BoxFit.fill,
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("11"),
+                          child: Text("sample1"),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 0,
+                            offset: Offset(0, 3),
+                          )
+                        ]),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: Image(
+                            image: AssetImage(
+                                'assets/images/my_bookshelf_image/book_sample.jpg'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 6),
+                          child: Text("sample1"),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 0,
+                            offset: Offset(0, 3),
+                          )
+                        ]),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: Image(
+                            image: AssetImage(
+                                'assets/images/my_bookshelf_image/book_sample.jpg'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 6),
+                          child: Text("sample1"),
                         )
                       ],
                     ),
