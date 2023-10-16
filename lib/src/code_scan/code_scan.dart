@@ -102,6 +102,37 @@ class _CodeScanState extends State<CodeScan> {
     );
   }
 
+  bool extended = false;
+
+  // FloatingActionButton extendedButton() {
+  //   return FloatingActionButton.extended(
+  //     onPressed: () {},
+  //     label: const Text("Click"),
+  //     isExtended: extended,
+  //     icon: const Icon(
+  //       Icons.add,
+  //       size: 30,
+  //     ),
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //   );
+  // }
+
+  Widget InfoButton() {
+    return Container(
+      child: Scaffold(
+        floatingActionButton: SizedBox(
+          height: 50,
+          width: extended ? 120 : 70,
+          child: ElevatedButton(
+            child: const Text("11"),
+            onPressed: () {},
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,6 +142,7 @@ class _CodeScanState extends State<CodeScan> {
           Search(),
           Camera(),
           InfoMessage(),
+          // InfoButton(),
         ]),
       ),
     );
