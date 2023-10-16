@@ -1,3 +1,4 @@
+import 'package:bookscan_1/src/app.dart';
 import 'package:flutter/material.dart';
 
 class BookInfo extends StatelessWidget {
@@ -5,8 +6,14 @@ class BookInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text("11")),
+    return Center(
+      child: ElevatedButton(
+        child: const Text("back"),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const App()));
+        },
+      ),
     );
   }
 }
