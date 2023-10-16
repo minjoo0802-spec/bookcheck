@@ -1,3 +1,4 @@
+import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 
@@ -102,7 +103,17 @@ class _CodeScanState extends State<CodeScan> {
     );
   }
 
-  bool extended = false;
+  Widget InfoMessage1() {
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      child: Text(
+        "22",
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
+  // bool extended = false;
 
   // FloatingActionButton extendedButton() {
   //   return FloatingActionButton.extended(
@@ -119,16 +130,12 @@ class _CodeScanState extends State<CodeScan> {
 
   Widget InfoButton() {
     return Container(
-      child: Scaffold(
-        floatingActionButton: SizedBox(
-          height: 50,
-          width: extended ? 120 : 70,
-          child: ElevatedButton(
-            child: const Text("11"),
-            onPressed: () {},
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      child: FloatingActionButton.small(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const BookInfo()));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -142,7 +149,7 @@ class _CodeScanState extends State<CodeScan> {
           Search(),
           Camera(),
           InfoMessage(),
-          // InfoButton(),
+          InfoButton(),
         ]),
       ),
     );
