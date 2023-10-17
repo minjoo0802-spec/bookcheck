@@ -1,6 +1,7 @@
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
+import 'package:http/http.dart' as http;
 
 class CodeScan extends StatefulWidget {
   const CodeScan({super.key});
@@ -12,6 +13,9 @@ class CodeScan extends StatefulWidget {
 class _CodeScanState extends State<CodeScan> {
   String? _qrInfo = 'Scan a QR/Bar code';
   bool _camState = false;
+
+  String _text = "변경되기 전!";
+  Uri _url = Uri.parse("https://127.0.0.1:3000/api");
 
   TextEditingController searchTextEditingController = TextEditingController();
 
@@ -131,14 +135,25 @@ class _CodeScanState extends State<CodeScan> {
   Widget InfoButton() {
     return Container(
       child: FloatingActionButton.small(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const BookInfo()));
+        onPressed: () async {
+          http.Response _res = await http.get(_url);
+          print(_res.body);
+          setState(() {
+            _text = _res.body;
+          });
         },
         child: Icon(Icons.add),
       ),
     );
   }
+
+  // void _getRequest() async {
+  //   http.Response _res = await http.get("$_url/");
+  //   print(_res.body);
+  //   setState(() {
+  //     _text = _res.body;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
