@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
@@ -15,7 +17,7 @@ class _CodeScanState extends State<CodeScan> {
   bool _camState = false;
 
   String _text = "변경되기 전!";
-  Uri _url = Uri.parse("https://127.0.0.1:3000/api");
+  final String _url = "http://192.168.25.5:3000";
 
   TextEditingController searchTextEditingController = TextEditingController();
 
@@ -136,7 +138,7 @@ class _CodeScanState extends State<CodeScan> {
     return Container(
       child: FloatingActionButton.small(
         onPressed: () async {
-          http.Response _res = await http.get(_url);
+          http.Response _res = await http.get(Uri.parse("$_url/"));
           print(_res.body);
           setState(() {
             _text = _res.body;
