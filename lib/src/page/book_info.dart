@@ -16,18 +16,63 @@ class BookInfo extends StatelessWidget {
 
   Widget _bookInfo() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image:
-                      AssetImage('assets/images/pointshop_image/item1.jpg'))),
-          width: 100,
-          height: 100,
+        Row(
+          children: [
+            // 책 표지 이미지
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Container(
+                width: 100,
+                height: 150,
+                decoration: BoxDecoration(
+                    image: const DecorationImage(
+                        image: NetworkImage(
+                            'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "제목 : ",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      "작가 : ",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      "판매가 : ",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      "줄거리 : ",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 20),
-          child: Text(style: TextStyle(fontSize: 18), "\u{1F4DA} 장르별 유사 책"),
+          child: Text(
+            "\u{1F4DA} 장르별 유사 책",
+            style: TextStyle(fontSize: 18),
+          ),
         ),
       ],
     );
@@ -101,7 +146,7 @@ class BookInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _bookInfo(),
           Expanded(child: _bookSimilar()),
