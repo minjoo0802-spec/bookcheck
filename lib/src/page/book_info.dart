@@ -16,7 +16,12 @@ class BookInfo extends StatelessWidget {
 
   Widget _bookInfo() {
     return Row(
-      children: [],
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 20),
+          child: Text(style: TextStyle(fontSize: 18), "\u{1F4DA} 장르별 유사 책"),
+        )
+      ],
     );
   }
 
