@@ -95,32 +95,16 @@ class BookInfo extends StatelessWidget {
               _launchInBrowser(toLaunch);
             },
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.7),
-                      spreadRadius: 0,
-                      blurRadius: 0,
-                      offset: Offset(0, 3),
-                    )
-                  ]),
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)),
-                    child: Image(
-                        image: AssetImage(
-                            'assets/images/pointshop_image/item1.jpg'),
-                        fit: BoxFit.fill),
-                  ),
                   Container(
-                    padding: EdgeInsets.only(left: 6),
-                    child: Text("2024 별별일상 다이어리"),
-                  )
+                    width: 100,
+                    height: 150,
+                    decoration: BoxDecoration(
+                        image: const DecorationImage(
+                            image: NetworkImage(
+                                'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
+                  ),
                 ],
               ),
             ),
