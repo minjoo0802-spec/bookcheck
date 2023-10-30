@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class CodeScan extends StatefulWidget {
@@ -134,12 +135,15 @@ class _CodeScanState extends State<CodeScan> {
   //   );
   // }
 
-  Widget InfoButton() {
+  Widget InfoButton(BuildContext context) {
     return Container(
       child: FloatingActionButton.small(
         onPressed: () async {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => BookInfo()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const BookInfo()));
+          // Navigator.push(
+          // Get.to(const BookInfo());
+          //     context, MaterialPageRoute(builder: (context) => BookInfo()));
           // http.Response _res = await http.get(Uri.parse("$_url/"));
           // print(_res.body);
           // setState(() {
@@ -168,7 +172,7 @@ class _CodeScanState extends State<CodeScan> {
           Search(),
           Camera(),
           InfoMessage(),
-          InfoButton(),
+          InfoButton(context),
         ]),
       ),
     );

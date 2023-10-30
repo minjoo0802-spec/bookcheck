@@ -1,4 +1,5 @@
-import 'package:bookscan_1/src/code_scan/code_scan.dart';
+import 'package:bookscan_1/src/page/book_info.dart';
+import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/controller/bottom_nav_controller.dart';
 import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:bookscan_1/src/page/shop.dart';
@@ -27,7 +28,12 @@ class App extends GetView<BottomNavController> {
           body: IndexedStack(
             index: controller.pageIndex.value,
             children: [
-              CodeScan(),
+              Navigator(
+                onGenerateRoute: (routeSettings) {
+                  return MaterialPageRoute(
+                      builder: (context) => const CodeScan());
+                },
+              ),
               TimeLine(),
               Shop(),
               MyBookShelf(),
