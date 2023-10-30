@@ -138,11 +138,13 @@ class _CodeScanState extends State<CodeScan> {
     return Container(
       child: FloatingActionButton.small(
         onPressed: () async {
-          http.Response _res = await http.get(Uri.parse("$_url/"));
-          print(_res.body);
-          setState(() {
-            _text = _res.body;
-          });
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => BookInfo()));
+          // http.Response _res = await http.get(Uri.parse("$_url/"));
+          // print(_res.body);
+          // setState(() {
+          //   _text = _res.body;
+          // });
         },
         child: Icon(Icons.add),
       ),

@@ -35,8 +35,8 @@ class App extends GetView<BottomNavController> {
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
             currentIndex: controller.pageIndex.value,
             onTap: controller.changeBottomNav,
             elevation: 0,
@@ -44,22 +44,22 @@ class App extends GetView<BottomNavController> {
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.cameraOff),
                 activeIcon: ImageData(IconsPath.cameraOn),
-                label: '1',
+                label: 'Camera',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.listOff),
                 activeIcon: ImageData(IconsPath.listOn),
-                label: '2',
+                label: 'TimeLine',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.starOff),
                 activeIcon: ImageData(IconsPath.starOn),
-                label: '3',
+                label: 'Shop',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.heartOff),
                 activeIcon: ImageData(IconsPath.heartOn),
-                label: '4',
+                label: 'MyBook',
               ),
             ],
           ),
