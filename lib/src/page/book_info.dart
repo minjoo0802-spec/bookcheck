@@ -15,12 +15,20 @@ class BookInfo extends StatelessWidget {
   }
 
   Widget _bookInfo() {
-    return Row(
+    return Column(
       children: [
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image:
+                      AssetImage('assets/images/pointshop_image/item1.jpg'))),
+          width: 100,
+          height: 100,
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 20),
           child: Text(style: TextStyle(fontSize: 18), "\u{1F4DA} 장르별 유사 책"),
-        )
+        ),
       ],
     );
   }
@@ -34,8 +42,8 @@ class BookInfo extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
-        crossAxisCount: 2,
-        childAspectRatio: 1 / 1.3,
+        crossAxisCount: 3,
+        childAspectRatio: 1 / 1.5,
         children: <Widget>[
           GestureDetector(
             onTap: () {
@@ -66,7 +74,7 @@ class BookInfo extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 6),
-                    child: Text("2024 별별일상 다이어리 (날짜형)"),
+                    child: Text("2024 별별일상 다이어리"),
                   )
                 ],
               ),
@@ -90,12 +98,16 @@ class BookInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _bookInfo(),
-        Expanded(child: _bookSimilar()),
-        _backButton(context),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _bookInfo(),
+          Expanded(child: _bookSimilar()),
+          Center(child: _backButton(context)),
+        ],
+      ),
     );
   }
 }
