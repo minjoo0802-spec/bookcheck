@@ -50,22 +50,22 @@ class App extends GetView<BottomNavController> {
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.cameraOff),
                 activeIcon: ImageData(IconsPath.cameraOn),
-                label: 'Camera',
+                label: '카메라',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.listOff),
                 activeIcon: ImageData(IconsPath.listOn),
-                label: 'TimeLine',
+                label: '독후감',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.starOff),
                 activeIcon: ImageData(IconsPath.starOn),
-                label: 'Shop',
+                label: '포인트샵',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.heartOff),
                 activeIcon: ImageData(IconsPath.heartOn),
-                label: 'MyBook',
+                label: '내 책장',
               ),
             ],
           ),

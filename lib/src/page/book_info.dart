@@ -1,4 +1,5 @@
 import 'package:bookscan_1/src/app.dart';
+import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,6 +20,7 @@ class BookInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 책 표지 이미지
             Padding(
@@ -125,6 +127,18 @@ class BookInfo extends StatelessWidget {
     );
   }
 
+  Widget _addBook(BuildContext context) {
+    return Container(
+      child: FloatingActionButton.small(
+        child: const Text("+"),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -134,7 +148,8 @@ class BookInfo extends StatelessWidget {
         children: [
           _bookInfo(),
           Expanded(child: _bookSimilar()),
-          Center(child: _backButton(context)),
+          _backButton(context),
+          _addBook(context),
         ],
       ),
     );
