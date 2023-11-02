@@ -142,8 +142,8 @@ class BookInfo extends StatelessWidget {
       child: FloatingActionButton.small(
         child: const Text("+"),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const LoginPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
         },
       ),
     );
@@ -171,10 +171,7 @@ class BookInfo extends StatelessWidget {
           Expanded(child: _bookSimilar()),
           _backButton(context),
           _addBook(context),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: _getRequest(context)),
+          SizedBox(width: 40, height: 40, child: _getRequest(context)),
         ],
       ),
     );
