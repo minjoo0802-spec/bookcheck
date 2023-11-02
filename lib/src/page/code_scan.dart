@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bookscan_1/src/page/book_info.dart';
@@ -17,6 +18,10 @@ class _CodeScanState extends State<CodeScan> {
   String? _qrInfo = 'Scan a QR/Bar code';
   bool _camState = false;
 
+  final String _url = "http://192.168.25.5:3000";
+
+  String isbn = "11";
+
   TextEditingController searchTextEditingController = TextEditingController();
 
   emptyTheTextFormField() {
@@ -30,7 +35,7 @@ class _CodeScanState extends State<CodeScan> {
   _qrCallback(String? code) {
     setState(() {
       _camState = false;
-      _qrInfo = code;
+      _qrInfo = code; // code => isbn
     });
   }
 
@@ -51,6 +56,30 @@ class _CodeScanState extends State<CodeScan> {
     super.dispose();
   }
 
+  Future<void> sendData(String? data) async {
+    try {
+      final Map<String, dynamic> requestData = {
+        'data': data,
+      };
+      final response = await http.post(
+        Uri.parse("$_url/post"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        print('Data sent successfully.');
+        print('Response data: ${response.body}');
+      } else {
+        print('Failed to send data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending data: $e');
+    }
+  }
+
   Widget Camera() {
     return Container(
       child: _camState
@@ -65,6 +94,8 @@ class _CodeScanState extends State<CodeScan> {
                   ),
                   qrCodeCallback: (code) {
                     _qrCallback(code);
+                    print(code);
+                    sendData(code);
                   },
                 ),
               ),
@@ -136,8 +167,8 @@ class _CodeScanState extends State<CodeScan> {
     return Container(
       child: FloatingActionButton.small(
         onPressed: () async {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => BookInfo()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => BookInfo()));
           // Navigator.push(
           // Get.to(const BookInfo());
           //     context, MaterialPageRoute(builder: (context) => BookInfo()));
@@ -151,8 +182,6 @@ class _CodeScanState extends State<CodeScan> {
       ),
     );
   }
-
-
 
   // void _getRequest() async {
   //   http.Response _res = await http.get("$_url/");

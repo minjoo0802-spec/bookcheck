@@ -151,16 +151,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
-  // Widget get DrawerUpDown {
-  //   return Drawer(
-  //     child: ListView(
-  //       children: <Widget>[
-  //         UserAccountsDrawerHeader(
-  //           accountName: Text('MinJoo'),
-  //           accountEmail: Text('drgdrgdrg@naver.com')),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

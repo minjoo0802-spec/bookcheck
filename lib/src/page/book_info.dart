@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
-class BookInfo extends StatelessWidget {
-  BookInfo({super.key});
+class BookInfo extends StatefulWidget {
+  _BookInfo createState() => _BookInfo();
+}
 
-  String _text = "변경되기 전!";
-  final String _url = "http://10.10.34.99:8080/data";
+class _BookInfo extends State<BookInfo> {
+  _BookInfo();
+
+  String _bookName = "변경되기 전!";
+  final String _url = "http://192.168.25.5:3000";
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -25,7 +29,7 @@ class BookInfo extends StatelessWidget {
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             // 책 표지 이미지
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -46,7 +50,7 @@ class BookInfo extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "제목 : ",
+                      "제목 : $_bookName",
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
@@ -149,12 +153,16 @@ class BookInfo extends StatelessWidget {
     );
   }
 
-  Widget _getRequest(BuildContext context) {
+  Widget _getRequestBtn(BuildContext context) {
     return Container(
-      child: FloatingActionButton(
+      child: FloatingActionButton.small(
+        child: const Text(""),
         onPressed: () async {
           http.Response _res = await http.get(Uri.parse("$_url/"));
-          print(_res);
+          print(_res.body); //해리포터
+          setState(() {
+            _bookName = _res.body;
+          });
         },
       ),
     );
@@ -171,7 +179,7 @@ class BookInfo extends StatelessWidget {
           Expanded(child: _bookSimilar()),
           _backButton(context),
           _addBook(context),
-          SizedBox(width: 40, height: 40, child: _getRequest(context)),
+          _getRequestBtn(context),
         ],
       ),
     );
