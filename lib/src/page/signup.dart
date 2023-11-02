@@ -79,7 +79,19 @@ class SignUpPage extends StatelessWidget {
                   TextFormField(
                     controller: _idController,
                     decoration: const InputDecoration(
-                        icon: Icon(Icons.account_circle), labelText: "ID"),
+                        icon: Icon(Icons.account_circle), labelText: "이름"),
+                    validator: (value) {
+                      if (value!.length < 1) return 'Please input correct ID.';
+                      // if (value == null) {
+                      //   return "Please input correct ID.";
+                      // }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _idController,
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.account_circle), labelText: "이메일"),
                     validator: (value) {
                       if (value!.length < 1) return 'Please input correct ID.';
                       // if (value == null) {
@@ -92,7 +104,7 @@ class SignUpPage extends StatelessWidget {
                     obscureText: true,
                     controller: _pwController,
                     decoration: const InputDecoration(
-                        icon: Icon(Icons.vpn_key), labelText: "PW"),
+                        icon: Icon(Icons.vpn_key), labelText: "비밀번호"),
                     validator: (value) {
                       if (value!.length < 1) return 'Please input correct PW.';
                       // if (value == null) {
@@ -104,12 +116,12 @@ class SignUpPage extends StatelessWidget {
                   Container(
                     height: 8,
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 40),
-                      child: Text(
-                        "Forgot Password",
-                        style: TextStyle(color: Colors.grey),
-                      )),
+                  // Padding(
+                  //     padding: const EdgeInsets.only(top: 5, left: 40),
+                  //     child: Text(
+                  //       "Forgot Password",
+                  //       style: TextStyle(color: Colors.grey),
+                  //     )),
                 ],
               )),
         ),
