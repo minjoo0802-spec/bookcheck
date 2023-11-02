@@ -42,14 +42,14 @@ class LoginPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          // 로그인 기능을 구현하세요.
+                          // 로그인 기능
                         },
                         child: Text('로그인'),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SignUpPage()));
+                            MaterialPageRoute(builder: (context) => const SignUpPage()));
                         },
                         child: Text('회원가입'),
                       ),

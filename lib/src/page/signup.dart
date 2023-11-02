@@ -31,7 +31,7 @@ class SignUpPage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // 회원가입 기능을 구현하세요.
+                  // 회원가입 기능
                 },
                 child: Text('회원가입'),
               ),

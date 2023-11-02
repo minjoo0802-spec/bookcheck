@@ -17,9 +17,6 @@ class _CodeScanState extends State<CodeScan> {
   String? _qrInfo = 'Scan a QR/Bar code';
   bool _camState = false;
 
-  String _text = "변경되기 전!";
-  final String _url = "http://192.168.25.5:3000";
-
   TextEditingController searchTextEditingController = TextEditingController();
 
   emptyTheTextFormField() {
@@ -140,7 +137,7 @@ class _CodeScanState extends State<CodeScan> {
       child: FloatingActionButton.small(
         onPressed: () async {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const BookInfo()));
+              MaterialPageRoute(builder: (context) => BookInfo()));
           // Navigator.push(
           // Get.to(const BookInfo());
           //     context, MaterialPageRoute(builder: (context) => BookInfo()));
@@ -154,6 +151,8 @@ class _CodeScanState extends State<CodeScan> {
       ),
     );
   }
+
+
 
   // void _getRequest() async {
   //   http.Response _res = await http.get("$_url/");

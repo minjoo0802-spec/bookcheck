@@ -2,9 +2,13 @@ import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 class BookInfo extends StatelessWidget {
-  const BookInfo({super.key});
+  BookInfo({super.key});
+
+  String _text = "변경되기 전!";
+  final String _url = "http://10.10.34.99:8080/data";
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -145,6 +149,17 @@ class BookInfo extends StatelessWidget {
     );
   }
 
+  Widget _getRequest(BuildContext context) {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () async {
+          http.Response _res = await http.get(Uri.parse("$_url/"));
+          print(_res);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -156,6 +171,10 @@ class BookInfo extends StatelessWidget {
           Expanded(child: _bookSimilar()),
           _backButton(context),
           _addBook(context),
+          SizedBox(
+            width: 40,
+            height: 40,
+            child: _getRequest(context)),
         ],
       ),
     );
