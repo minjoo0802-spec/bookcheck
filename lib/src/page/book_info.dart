@@ -54,6 +54,12 @@ class BookInfo extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
+                      "출판사 : ",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
                       "판매가 : ",
                       style: TextStyle(fontSize: 15),
                     ),
