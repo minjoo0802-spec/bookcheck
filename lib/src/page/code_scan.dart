@@ -18,7 +18,7 @@ class _CodeScanState extends State<CodeScan> {
   String? _qrInfo = 'Scan a QR/Bar code';
   bool _camState = false;
 
-  final String _url = "http://192.168.25.5:3000";
+  final String _url = "http://10.101.34.99:3000";
 
   String isbn = "11";
 
