@@ -34,7 +34,7 @@ class App extends GetView<BottomNavController> {
                       builder: (context) => const CodeScan());
                 },
               ),
-              TimeLine(),
+              TimeLinePage(),
               Shop(),
               MyBookShelf(),
             ],
