@@ -12,9 +12,7 @@ class _BookInfo extends State<BookInfo> {
   _BookInfo();
 
   String _bookName = "변경되기 전!";
-  final String _url = "http://10.101.34.99:3000";
-
-  
+  final String _url = "http://192.168.25.5:3000";
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -26,7 +24,8 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _bookInfo() {
-    String _ImgUrl = 'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg';
+    String _ImgUrl =
+        'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,9 +40,7 @@ class _BookInfo extends State<BookInfo> {
                 width: 100,
                 height: 150,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            '$_ImgUrl'))),
+                    image: DecorationImage(image: NetworkImage('$_ImgUrl'))),
               ),
             ),
             Padding(
