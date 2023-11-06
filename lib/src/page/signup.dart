@@ -18,6 +18,31 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
+      Widget _authButton(Size size) {
+    return Positioned(
+      left: size.width * 0.15,
+      right: size.width * 0.1,
+      bottom: 0,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
+        onPressed: (() {
+          if (_formKey.currentState!.validate() != 0) {
+            // print(_idController.text.toString());
+            Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+          }
+        }),
+        child: Text(
+          "회원가입",
+          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+        ),
+      ),
+    );
+  }
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -91,7 +116,7 @@ class SignUpPage extends StatelessWidget {
                   TextFormField(
                     controller: _idController,
                     decoration: const InputDecoration(
-                        icon: Icon(Icons.account_circle), labelText: "이메일"),
+                        icon: Icon(Icons.account_circle), labelText: "아이디"),
                     validator: (value) {
                       if (value!.length < 1) return 'Please input correct ID.';
                       // if (value == null) {
@@ -129,28 +154,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget _authButton(Size size) {
-    return Positioned(
-      left: size.width * 0.15,
-      right: size.width * 0.1,
-      bottom: 0,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-        onPressed: (() {
-          if (_formKey.currentState!.validate() != 0) {
-            print(_idController.text.toString());
-          }
-        }),
-        child: Text(
-          "회원가입",
-          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
-        ),
-      ),
-    );
-  }
+
 
   Widget get _logoImage {
     return Expanded(

@@ -1,22 +1,56 @@
+import 'dart:convert';
+
 import 'package:bookscan_1/src/helper/login_background.dart';
+import 'package:bookscan_1/src/page/book_info.dart';
+import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+
+  final String _url = "http://10.101.81.108:3000";
 
   // String userName = '';
   // String userEmail = '';
   //String userPw = '';
 
+
 // context => 앱이 돌아가는 정보
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    Widget _authButton(Size size) {
+    return Positioned(
+      left: size.width * 0.15,
+      right: size.width * 0.1,
+      bottom: 0,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
+        onPressed: (() {
+          if (_formKey1.currentState!.validate() != 0) {
+            sendLoginData(_idController.text, _pwController.text);
+            Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyBookShelf()));
+            // print(_idController.text.toString());
+          }
+        }),
+        child: Text(
+          "로그인",
+          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+        ),
+      ),
+    );
+  }
 
     return Scaffold(
       body: Stack(
@@ -32,7 +66,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               //_logoImage,
               Stack(
-                key: _formKey,
+                key: _formKey1,
                 children: <Widget>[
                   _inputForm(size),
                   _authButton(size),
@@ -61,6 +95,31 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  Future<void> sendLoginData(String? id, String? pw) async {
+    try {
+      final Map<String, dynamic> requestData = {
+        'id': id,
+        'pw': pw,
+      };
+      final response = await http.post(
+        Uri.parse("$_url/login"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        print('Data sent successfully.');
+        print('Response data: ${response.body}');
+      } else {
+        print('Failed to send data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending data: $e');
+    }
+  }
+
   Widget _inputForm(Size size) {
     return Padding(
       padding: EdgeInsets.all(size.width * 0.05),
@@ -71,8 +130,8 @@ class LoginPage extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 32),
           child: Form(
-              // _formKey를 통해 변한 상태를 가져올 수 있음
-              key: _formKey,
+              // _formKey1를 통해 변한 상태를 가져올 수 있음
+              key: _formKey1,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -85,7 +144,7 @@ class LoginPage extends StatelessWidget {
                       // if (value == null) {
                       //   return "Please input correct ID.";
                       // }
-                      return null;
+                      return value;
                     },
                   ),
                   TextFormField(
@@ -117,28 +176,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _authButton(Size size) {
-    return Positioned(
-      left: size.width * 0.15,
-      right: size.width * 0.1,
-      bottom: 0,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-        onPressed: (() {
-          if (_formKey.currentState!.validate() != 0) {
-            print(_idController.text.toString());
-          }
-        }),
-        child: Text(
-          "로그인",
-          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
-        ),
-      ),
-    );
-  }
+  
 
   Widget get _logoImage {
     return Expanded(

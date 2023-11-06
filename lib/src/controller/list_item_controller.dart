@@ -9,7 +9,7 @@ class ListItemController extends GetxController {
 
   Future<void> fetchPosts() async {
     final response =
-        await http.get(Uri.parse('http://192.168.25.5:3000/posts'));
+        await http.get(Uri.parse('http://10.101.52.221:3000/posts'));
     if (response.statusCode == 200) {
       final List<ListItem> data = postFromJson(response.body);
       listItems.assignAll(data);

@@ -12,7 +12,7 @@ class _BookInfo extends State<BookInfo> {
   _BookInfo();
 
   String _bookName = "변경되기 전!";
-  final String _url = "http://192.168.25.5:3000";
+  final String _url = "http://10.101.81.108:3000";
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
