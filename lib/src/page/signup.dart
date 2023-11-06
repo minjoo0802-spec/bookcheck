@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -10,6 +13,8 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
   final TextEditingController _confirmPwController = TextEditingController();
+
+  final String _url = "http://10.101.81.108:3000";
 
   // String userName = '';
   // String userEmail = '';
@@ -34,11 +39,12 @@ class SignUpPage extends StatelessWidget {
           if (_signUpFormKey.currentState!.validate() != 0) {
             // print(_idController.text.toString());
             if (_pwController.text == _confirmPwController.text) {
-              print("비밀번호 확인했는데 같음");
+              print("비밀번호 같음");
+              sendLoginData(_nameController.text, _idController.text, _pwController.text);
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginPage()));
             } else {
-              print("비밀번호 확인했는데 다름");
+              print("비밀번호 다름");
             }
             
           }
@@ -92,6 +98,32 @@ class SignUpPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> sendLoginData(String? name, String? id, String? pw) async {
+    try {
+      final Map<String, dynamic> requestData = {
+        'name': name,
+        'id': id,
+        'pw': pw,
+      };
+      final response = await http.post(
+        Uri.parse("$_url/register"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        print('Data sent successfully.');
+        print('Response data: ${response.body}');
+      } else {
+        print('Failed to send data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error sending data: $e');
+    }
   }
 
   Widget _inputForm(Size size) {
