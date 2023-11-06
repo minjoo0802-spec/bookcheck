@@ -18,6 +18,12 @@ class App extends GetView<BottomNavController> {
       child: Obx(
         () => Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
             title: Image.asset(
               'assets/images/app_bar_icon/logo.png',
               width: 55,

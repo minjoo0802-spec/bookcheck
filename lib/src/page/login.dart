@@ -39,9 +39,10 @@ class LoginPage extends StatelessWidget {
         onPressed: (() {
           if (_formKey1.currentState!.validate() != 0) {
             sendLoginData(_idController.text, _pwController.text);
+            print(_idController.text.toString());
             Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyBookShelf()));
-            // print(_idController.text.toString());
+            
           }
         }),
         child: Text(
