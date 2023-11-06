@@ -1,3 +1,4 @@
+import 'package:bookscan_1/src/controller/back_page_controller.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/controller/bottom_nav_controller.dart';
@@ -13,6 +14,7 @@ class App extends GetView<BottomNavController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(BackPageController());
     return WillPopScope(
       // ignore: sort_child_properties_last
       child: Obx(
@@ -34,11 +36,23 @@ class App extends GetView<BottomNavController> {
           body: IndexedStack(
             index: controller.pageIndex.value,
             children: [
-              Navigator(
-                onGenerateRoute: (routeSettings) {
-                  return MaterialPageRoute(
-                      builder: (context) => const CodeScan());
+              WillPopScope(
+                onWillPop: () async {
+                  int currentPageIndex = controller.pageIndex.value;
+
+                  if(currentPageIndex > 0) {
+                    controller.changeBottomNav(currentPageIndex - 1);
+                    return false;
+                  }
+
+                  return true;
                 },
+                child: Navigator(
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                        builder: (context) => const CodeScan());
+                  },
+                ),
               ),
               TimeLinePage(),
               Shop(),
@@ -77,7 +91,6 @@ class App extends GetView<BottomNavController> {
           ),
         ),
       ),
-      onWillPop: controller.willPopAction,
-    );
+      onWillPop: Get.find<BackPageController>().onWillPop,);
   }
 }

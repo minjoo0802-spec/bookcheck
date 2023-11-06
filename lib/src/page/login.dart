@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
         onPressed: (() {
-          if (_formKey1.currentState!.validate() != 0) {
+          if (_loginFormKey.currentState!.validate() != 0) {
             sendLoginData(_idController.text, _pwController.text);
             print(_idController.text.toString());
             Navigator.push(context,
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               //_logoImage,
               Stack(
-                key: _formKey1,
+                key: _loginFormKey,
                 children: <Widget>[
                   _inputForm(size),
                   _authButton(size),
@@ -131,8 +131,8 @@ class LoginPage extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 32),
           child: Form(
-              // _formKey1를 통해 변한 상태를 가져올 수 있음
-              key: _formKey1,
+              // _loginFormKey를 통해 변한 상태를 가져올 수 있음
+              key: _loginFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

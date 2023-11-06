@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+  final TextEditingController _confirmPwController = TextEditingController();
 
   // String userName = '';
   // String userEmail = '';
@@ -29,10 +31,16 @@ class SignUpPage extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
         onPressed: (() {
-          if (_formKey.currentState!.validate() != 0) {
+          if (_signUpFormKey.currentState!.validate() != 0) {
             // print(_idController.text.toString());
-            Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+            if (_pwController.text == _confirmPwController.text) {
+              print("비밀번호 확인했는데 같음");
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginPage()));
+            } else {
+              print("비밀번호 확인했는데 다름");
+            }
+            
           }
         }),
         child: Text(
@@ -57,7 +65,7 @@ class SignUpPage extends StatelessWidget {
             children: <Widget>[
               //_logoImage,
               Stack(
-                key: _formKey,
+                key: _signUpFormKey,
                 children: <Widget>[
                   _inputForm(size),
                   _authButton(size),
@@ -96,13 +104,13 @@ class SignUpPage extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 32),
           child: Form(
-              // _formKey를 통해 변한 상태를 가져올 수 있음
-              key: _formKey,
+              // _signUpFormKey를 통해 변한 상태를 가져올 수 있음
+              key: _signUpFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
-                    controller: _idController,
+                    controller: _nameController,
                     decoration: const InputDecoration(
                         icon: Icon(Icons.account_circle), labelText: "이름"),
                     validator: (value) {
@@ -132,6 +140,20 @@ class SignUpPage extends StatelessWidget {
                         icon: Icon(Icons.vpn_key), labelText: "비밀번호"),
                     validator: (value) {
                       if (value!.length < 1) return 'Please input correct PW.';
+                      // if (value == null) {
+                      //   return "Please input correct PW.";
+                      // }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    obscureText: true,
+                    controller: _confirmPwController,
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.vpn_key), labelText: "비밀번호 확인"),
+                    validator: (value) {
+                      if (value!.length < 1) return 'Please input correct PW.';
+                      if (value != _pwController.text) return '비밀번호가 일치하지 않습니다.';
                       // if (value == null) {
                       //   return "Please input correct PW.";
                       // }
