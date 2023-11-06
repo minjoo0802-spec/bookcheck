@@ -1,20 +1,29 @@
 import 'package:get/get.dart';
 
-import 'bottom_nav_controller.dart';
+// import 'bottom_nav_controller.dart';
+
+enum PageName {
+  BookInfo,
+}
 
 class BackPageController extends GetxController {
-  Future<bool> onWillPop() async {
-    // 현재 페이지의 인덱스를 가져옵니다.
-    int currentPageIndex = Get.find<BottomNavController>().pageIndex.value;
+  RxInt pageIndex = 0.obs;
+  List<int> bottomHistory = [0];
 
-    // 만약 현재 페이지가 첫 번째 페이지(0번 페이지)가 아닌 경우
-    // 이전 페이지로 이동하고 뒤로가기 액션을 처리합니다.
-    if (currentPageIndex > 0) {
-      Get.find<BottomNavController>().changeBottomNav(currentPageIndex - 1);
-      return false; // 뒤로가기 액션을 처리하므로 false를 반환
+  void changePageNav(int value, {bool hasGesture = true}) {
+    var page = PageName.values[value];
+    _changePage(value, hasGesture: hasGesture);
+    pageIndex(value);
+  }
+
+  void _changePage(int value, {bool hasGesture = true}) {
+    pageIndex(value);
+    //뒤로가기 버튼으로 페이지 이동시에는 리스트에 추가 x
+    if (!hasGesture) return;
+    if (bottomHistory.contains(value)) {
+      bottomHistory.remove(value);
     }
-
-    // 현재 페이지가 첫 번째 페이지인 경우 앱을 종료합니다.
-    return true; // 앱 종료
+    bottomHistory.add(value);
+    // print(bottomHistory);
   }
 }

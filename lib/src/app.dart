@@ -1,4 +1,5 @@
 import 'package:bookscan_1/src/controller/back_page_controller.dart';
+import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/controller/bottom_nav_controller.dart';
@@ -10,29 +11,17 @@ import 'package:get/get.dart';
 import 'components/image_data.dart';
 
 class App extends GetView<BottomNavController> {
-  const App({super.key});
+  App({super.key});
+  //final BackPageController backPageController = Get.put(BackPageController());
 
   @override
   Widget build(BuildContext context) {
-    Get.put(BackPageController());
+    //Get.put(BackPageController());
     return WillPopScope(
-      // ignore: sort_child_properties_last
+      onWillPop: controller.willPopAction,
       child: Obx(
         () => Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            title: Image.asset(
-              'assets/images/app_bar_icon/logo.png',
-              width: 55,
-              height: 55,
-            ),
-            centerTitle: true,
-          ),
+          // appBar: MainAppBar(),
           body: IndexedStack(
             index: controller.pageIndex.value,
             children: [
@@ -40,7 +29,7 @@ class App extends GetView<BottomNavController> {
                 onWillPop: () async {
                   int currentPageIndex = controller.pageIndex.value;
 
-                  if(currentPageIndex > 0) {
+                  if (currentPageIndex > 0) {
                     controller.changeBottomNav(currentPageIndex - 1);
                     return false;
                   }
@@ -91,6 +80,6 @@ class App extends GetView<BottomNavController> {
           ),
         ),
       ),
-      onWillPop: Get.find<BackPageController>().onWillPop,);
+    );
   }
 }

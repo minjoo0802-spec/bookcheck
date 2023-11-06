@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bookscan_1/src/controller/back_page_controller.dart';
+import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
@@ -23,6 +25,8 @@ class _CodeScanState extends State<CodeScan> {
   String isbn = "11";
 
   TextEditingController searchTextEditingController = TextEditingController();
+
+  //final BackPageController backPageController = Get.put(BackPageController());
 
   emptyTheTextFormField() {
     searchTextEditingController.clear();
@@ -138,15 +142,15 @@ class _CodeScanState extends State<CodeScan> {
     );
   }
 
-  Widget InfoMessage1() {
-    return Container(
-      padding: EdgeInsets.only(top: 15),
-      child: Text(
-        "22",
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-  }
+  // Widget InfoMessage1() {
+  //   return Container(
+  //     padding: EdgeInsets.only(top: 15),
+  //     child: Text(
+  //       "22",
+  //       style: TextStyle(fontSize: 20),
+  //     ),
+  //   );
+  // }
 
   // bool extended = false;
 
@@ -169,14 +173,6 @@ class _CodeScanState extends State<CodeScan> {
         onPressed: () async {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => BookInfo()));
-          // Navigator.push(
-          // Get.to(const BookInfo());
-          //     context, MaterialPageRoute(builder: (context) => BookInfo()));
-          // http.Response _res = await http.get(Uri.parse("$_url/"));
-          // print(_res.body);
-          // setState(() {
-          //   _text = _res.body;
-          // });
         },
         child: Icon(Icons.add),
       ),
@@ -194,6 +190,7 @@ class _CodeScanState extends State<CodeScan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MainAppBar(),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(children: <Widget>[

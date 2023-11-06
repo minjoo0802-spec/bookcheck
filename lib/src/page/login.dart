@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/my_bookshelf.dart';
@@ -20,40 +21,39 @@ class LoginPage extends StatelessWidget {
   // String userEmail = '';
   //String userPw = '';
 
-
 // context => 앱이 돌아가는 정보
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
     Widget _authButton(Size size) {
-    return Positioned(
-      left: size.width * 0.15,
-      right: size.width * 0.1,
-      bottom: 0,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-        onPressed: (() {
-          if (_loginFormKey.currentState!.validate() != 0) {
-            sendLoginData(_idController.text, _pwController.text);
-            print(_idController.text.toString());
-            Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyBookShelf()));
-            
-          }
-        }),
-        child: Text(
-          "로그인",
-          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+      return Positioned(
+        left: size.width * 0.15,
+        right: size.width * 0.1,
+        bottom: 0,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
+          onPressed: (() {
+            if (_loginFormKey.currentState!.validate() != 0) {
+              sendLoginData(_idController.text, _pwController.text);
+              print(_idController.text.toString());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyBookShelf()));
+            }
+          }),
+          child: Text(
+            "로그인",
+            style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
     return Scaffold(
+      appBar: PageAppBar(),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -176,8 +176,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
-  
 
   Widget get _logoImage {
     return Expanded(

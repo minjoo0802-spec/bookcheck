@@ -1,4 +1,6 @@
 import 'package:bookscan_1/src/app.dart';
+import 'package:bookscan_1/src/helper/app_bar.dart';
+import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -131,17 +133,6 @@ class _BookInfo extends State<BookInfo> {
     );
   }
 
-  Widget _backButton(BuildContext context) {
-    return Container(
-      child: FloatingActionButton.small(
-        child: const Text("<<"),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-
   Widget _addBook(BuildContext context) {
     return Container(
       child: FloatingActionButton.small(
@@ -172,17 +163,19 @@ class _BookInfo extends State<BookInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _bookInfo(),
-          Expanded(child: _bookSimilar()),
-          _backButton(context),
-          _addBook(context),
-          _getRequestBtn(context),
-        ],
+    return Scaffold(
+      appBar: PageAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _bookInfo(),
+            Expanded(child: _bookSimilar()),
+            _addBook(context),
+            _getRequestBtn(context),
+          ],
+        ),
       ),
     );
   }

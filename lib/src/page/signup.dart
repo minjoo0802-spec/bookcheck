@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
@@ -25,39 +26,40 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-      Widget _authButton(Size size) {
-    return Positioned(
-      left: size.width * 0.15,
-      right: size.width * 0.1,
-      bottom: 0,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-        onPressed: (() {
-          if (_signUpFormKey.currentState!.validate() != 0) {
-            // print(_idController.text.toString());
-            if (_pwController.text == _confirmPwController.text) {
-              print("비밀번호 같음");
-              sendLoginData(_nameController.text, _idController.text, _pwController.text);
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginPage()));
-            } else {
-              print("비밀번호 다름");
+    Widget _authButton(Size size) {
+      return Positioned(
+        left: size.width * 0.15,
+        right: size.width * 0.1,
+        bottom: 0,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
+          onPressed: (() {
+            if (_signUpFormKey.currentState!.validate() != 0) {
+              // print(_idController.text.toString());
+              if (_pwController.text == _confirmPwController.text) {
+                print("비밀번호 같음");
+                sendLoginData(_nameController.text, _idController.text,
+                    _pwController.text);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              } else {
+                print("비밀번호 다름");
+              }
             }
-            
-          }
-        }),
-        child: Text(
-          "회원가입",
-          style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+          }),
+          child: Text(
+            "회원가입",
+            style: TextStyle(color: const Color.fromARGB(255, 71, 71, 71)),
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
     return Scaffold(
+      appBar: PageAppBar(),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -185,7 +187,8 @@ class SignUpPage extends StatelessWidget {
                         icon: Icon(Icons.vpn_key), labelText: "비밀번호 확인"),
                     validator: (value) {
                       if (value!.length < 1) return 'Please input correct PW.';
-                      if (value != _pwController.text) return '비밀번호가 일치하지 않습니다.';
+                      if (value != _pwController.text)
+                        return '비밀번호가 일치하지 않습니다.';
                       // if (value == null) {
                       //   return "Please input correct PW.";
                       // }
@@ -207,8 +210,6 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget get _logoImage {
     return Expanded(
