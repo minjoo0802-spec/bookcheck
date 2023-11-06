@@ -1,4 +1,5 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
+import 'package:bookscan_1/src/page/book_review.dart';
 import 'package:flutter/material.dart';
 
 class MyBookShelf extends StatefulWidget {
@@ -27,7 +28,13 @@ class _MyBookShelfState extends State<MyBookShelf> {
                 crossAxisCount: 3,
                 childAspectRatio: 1 / 1.7,
                 children: <Widget>[
-                  Container(
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BookReviewPage()));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
