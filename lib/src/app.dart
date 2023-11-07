@@ -1,4 +1,3 @@
-import 'package:bookscan_1/src/controller/back_page_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
@@ -12,16 +11,12 @@ import 'components/image_data.dart';
 
 class App extends GetView<BottomNavController> {
   App({super.key});
-  //final BackPageController backPageController = Get.put(BackPageController());
-
   @override
   Widget build(BuildContext context) {
-    //Get.put(BackPageController());
     return WillPopScope(
       onWillPop: controller.willPopAction,
       child: Obx(
         () => Scaffold(
-          // appBar: MainAppBar(),
           body: IndexedStack(
             index: controller.pageIndex.value,
             children: [
@@ -39,7 +34,7 @@ class App extends GetView<BottomNavController> {
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
-                        builder: (context) => const CodeScan());
+                        builder: (context) => CodeScan());
                   },
                 ),
               ),

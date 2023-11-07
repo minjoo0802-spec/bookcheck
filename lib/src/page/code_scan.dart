@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:bookscan_1/src/controller/back_page_controller.dart';
+import 'package:bookscan_1/src/controller/book_info_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
@@ -9,24 +8,24 @@ import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
+import '../connect/server.dart';
+
 class CodeScan extends StatefulWidget {
-  const CodeScan({super.key});
+    const CodeScan({super.key});
 
   @override
   State<CodeScan> createState() => _CodeScanState();
 }
 
 class _CodeScanState extends State<CodeScan> {
+  
+
+  final ServerConnect _server = ServerConnect();
+
   String? _qrInfo = 'Scan a QR/Bar code';
   bool _camState = false;
 
-  final String _url = "http://10.101.81.108:3000";
-
-  String isbn = "11";
-
   TextEditingController searchTextEditingController = TextEditingController();
-
-  //final BackPageController backPageController = Get.put(BackPageController());
 
   emptyTheTextFormField() {
     searchTextEditingController.clear();
@@ -38,9 +37,13 @@ class _CodeScanState extends State<CodeScan> {
 
   _qrCallback(String? code) {
     setState(() {
-      _camState = false;
+      //_camState = false;
       _qrInfo = code; // code => isbn
     });
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BookInfo()),
+    );
   }
 
   _scanCode() {
@@ -58,56 +61,6 @@ class _CodeScanState extends State<CodeScan> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Future<void> sendData(String? data) async {
-    try {
-      final Map<String, dynamic> requestData = {
-        'data': data,
-      };
-      final response = await http.post(
-        Uri.parse("$_url/post"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
-      );
-
-      if (response.statusCode == 200) {
-        print('Data sent successfully.');
-        print('Response data: ${response.body}');
-      } else {
-        print('Failed to send data. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error sending data: $e');
-    }
-  }
-
-  Widget Camera() {
-    return Container(
-      child: _camState
-          ? Center(
-              child: SizedBox(
-                height: 450,
-                width: 500,
-                child: QRBarScannerCamera(
-                  onError: (context, error) => Text(
-                    error.toString(),
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  qrCodeCallback: (code) {
-                    _qrCallback(code);
-                    print(code);
-                    sendData(code);
-                  },
-                ),
-              ),
-            )
-          : Center(
-              child: Text(_qrInfo ?? ''),
-            ),
-    );
   }
 
   Widget Search() {
@@ -132,61 +85,6 @@ class _CodeScanState extends State<CodeScan> {
     ));
   }
 
-  Widget InfoMessage() {
-    return Container(
-      padding: EdgeInsets.only(top: 15),
-      child: Text(
-        "책의 바코드 또는 QR 코드를 스캔해주세요 !",
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-  }
-
-  // Widget InfoMessage1() {
-  //   return Container(
-  //     padding: EdgeInsets.only(top: 15),
-  //     child: Text(
-  //       "22",
-  //       style: TextStyle(fontSize: 20),
-  //     ),
-  //   );
-  // }
-
-  // bool extended = false;
-
-  // FloatingActionButton extendedButton() {
-  //   return FloatingActionButton.extended(
-  //     onPressed: () {},
-  //     label: const Text("Click"),
-  //     isExtended: extended,
-  //     icon: const Icon(
-  //       Icons.add,
-  //       size: 30,
-  //     ),
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  //   );
-  // }
-
-  Widget InfoButton(BuildContext context) {
-    return Container(
-      child: FloatingActionButton.small(
-        onPressed: () async {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => BookInfo()));
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-
-  // void _getRequest() async {
-  //   http.Response _res = await http.get("$_url/");
-  //   print(_res.body);
-  //   setState(() {
-  //     _text = _res.body;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,9 +93,62 @@ class _CodeScanState extends State<CodeScan> {
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Search(),
-          Camera(),
-          InfoMessage(),
-          InfoButton(context),
+          Center(
+            child: _camState 
+            ? Column(
+              children: [
+                SizedBox(
+                  height: 450,
+                  width: 500,
+                  child: QRBarScannerCamera(
+                    onError: (context, error) => Text(
+                      error.toString(),
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    qrCodeCallback: (code) {
+                      if (_camState) {
+                        _qrInfo = code;
+                        print(code);
+                        _server.sendData(code);
+                        setState(() {
+                          _camState = false;
+                        });
+                        // + 서버에 데이터 요청
+                        // + 서버에서 받은 데이터 전달
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BookInfo()),
+                        );
+                      }
+                    },
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Container(child: Text('책의 바코드를 스캔해주세요 !', style: TextStyle(fontSize: 20),),
+                )
+              ],
+            )
+          
+            : Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Center(
+                child: Text('다른 책을 스캔하고 싶으시면 아래 버튼을 클릭해주세요.',
+                style: TextStyle(fontSize: 20),),
+            
+              ),
+            )
+          ),
+          SizedBox(height: 20,),
+          if(_qrInfo != null)
+          // Center(child: Text('Scanned QR/Bar code : $_qrInfo',
+          // style: TextStyle(fontSize: 20),),),
+          // SizedBox(height: 20,),
+          ElevatedButton(onPressed: () {
+            setState(() {
+              _qrInfo = null;
+              _scanCode();
+            });
+          }, child: Text('Scan Again'),),
         ]),
       ),
     );

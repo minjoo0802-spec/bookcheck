@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
-  final String _url = "http://10.101.81.108:3000";
+  final String _url = "http://10.101.97.210:3000";
 
   // String userName = '';
   // String userEmail = '';

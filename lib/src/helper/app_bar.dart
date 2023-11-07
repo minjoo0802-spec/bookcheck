@@ -55,3 +55,34 @@ class PageAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(60);
 }
+
+class ScanAgainAppBar extends StatelessWidget implements PreferredSizeWidget {
+  ScanAgainAppBar({required this.scanAgainCallback, super.key});
+
+  final VoidCallback scanAgainCallback;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          scanAgainCallback();
+        },
+      ),
+      title: Image.asset(
+        'assets/images/app_bar_icon/logo.png',
+        width: 55,
+        height: 55,
+      ),
+      centerTitle: true,
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(60);
+}
