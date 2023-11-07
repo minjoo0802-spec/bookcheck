@@ -264,7 +264,7 @@ class _BookInfo extends State<BookInfo> {
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bookInfo(),
+            // _bookInfo(),
             Expanded(child: _bookSimilar()),
             _addBook(context),
             _getRequestBtn(context),
