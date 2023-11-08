@@ -15,7 +15,8 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
-  final String _url = "http://10.101.97.210:3000";
+  final String _url = "http://10.101.97.210:3000"; // 현서꺼
+    // final String _url = "http://10.101.52.221:3000"; //내꺼
 
   // String userName = '';
   // String userEmail = '';
@@ -40,8 +41,8 @@ class LoginPage extends StatelessWidget {
             if (_loginFormKey.currentState!.validate() != 0) {
               sendLoginData(_idController.text, _pwController.text);
               print(_idController.text.toString());
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyBookShelf()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => MyBookShelf()));
             }
           }),
           child: Text(

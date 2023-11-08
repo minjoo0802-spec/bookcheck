@@ -1,5 +1,3 @@
-import 'package:bookscan_1/src/helper/app_bar.dart';
-import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/controller/bottom_nav_controller.dart';
 import 'package:bookscan_1/src/page/my_bookshelf.dart';
@@ -10,7 +8,7 @@ import 'package:get/get.dart';
 import 'components/image_data.dart';
 
 class App extends GetView<BottomNavController> {
-  App({super.key});
+  const App({super.key});
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

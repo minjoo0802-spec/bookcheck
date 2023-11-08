@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ServerConnect {
-  final Uri _url = Uri.parse("http://10.101.97.210:3000");
+  final Uri _url = Uri.parse("http://10.101.97.210:3000"); // 현서꺼
+  //final Uri _url = Uri.parse("http://10.101.52.221:3000"); //내꺼
 
   Future<void> sendData(String? data) async {
     try {

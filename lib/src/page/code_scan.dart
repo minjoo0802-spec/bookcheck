@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:bookscan_1/src/controller/book_info_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 import '../connect/server.dart';
 
@@ -64,25 +59,24 @@ class _CodeScanState extends State<CodeScan> {
   }
 
   Widget Search() {
-    return Container(
-        child: TextFormField(
+    return TextFormField(
       controller: searchTextEditingController,
       decoration: InputDecoration(
-        hintText: 'Search hear',
-        hintStyle: TextStyle(
-          color: Colors.grey,
-        ),
-        prefixIcon: Icon(Icons.search_rounded, color: Colors.black, size: 30),
-        suffixIcon: IconButton(
-          icon: Icon(
-            Icons.clear,
-            color: Colors.black,
-          ),
-          onPressed: emptyTheTextFormField,
-        ),
+    hintText: 'Search hear',
+    hintStyle: TextStyle(
+      color: Colors.grey,
+    ),
+    prefixIcon: Icon(Icons.search_rounded, color: Colors.black, size: 30),
+    suffixIcon: IconButton(
+      icon: Icon(
+        Icons.clear,
+        color: Colors.black,
+      ),
+      onPressed: emptyTheTextFormField,
+    ),
       ),
       onFieldSubmitted: controlSearching,
-    ));
+    );
   }
 
   @override
