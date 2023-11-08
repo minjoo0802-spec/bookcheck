@@ -19,23 +19,49 @@ class _BookReviewPageState extends State<BookReviewPage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('책 제목'),
-            TextFormField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                hintText: '책 제목을 입력하세요',
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Text('평점'),
-            RatingBar(
-              rating: _rating,
-              onRatingChanged: (newRating) {
-                setState(() {
-                  _rating = newRating;
-                });
-              },
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 100,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
+                ),
+                SizedBox(width: 20,),
+                Container(
+                  height: 150,
+                  width: 200,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text('책 제목'),
+                      ),
+                      TextFormField(
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          hintText: '책 제목을 입력하세요',
+                        ),
+                      ),
+                      SizedBox(height: 16.0),
+                      Text('평점'),
+                      RatingBar(
+                        rating: _rating,
+                        onRatingChanged: (newRating) {
+                          setState(() {
+                            _rating = newRating;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 16.0),
             Text('독후감 내용'),
@@ -57,6 +83,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
               child: Text('작성 완료'),
             ),
           ],
+          
         ),
       ),
     );

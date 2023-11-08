@@ -1,4 +1,5 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
+import 'package:bookscan_1/src/page/book_report_review.dart';
 import 'package:bookscan_1/src/page/book_review.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +68,12 @@ class _MyBookShelfState extends State<MyBookShelf> {
                       ),
                     ),
                   ),
-                  Container(
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(context: context, builder: (context) {
+                        return Dialog(child: BookReportReviewPage());
+                      });
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -94,7 +100,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 6),
-                            child: Text("sample1"),
+                            child: Text("sample2"),
                           )
                         ],
                       ),
