@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:bookscan_1/src/controller/book_info_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
-import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,11 +17,7 @@ class BookInfo extends StatefulWidget {
 }
 
 class _BookInfo extends State<BookInfo> {
-  //final BookInfoController controller = Get.put(BookInfoController());
-  BookInfo({key}) {
-    // controller.fetchBookInfo();
-    // controller.onInit();
-  }
+  BookInfo({key}) {}
   _BookInfo();
 
     Future<BookInfoItem> fetchBookInfo() async {
@@ -50,12 +44,7 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _bookInfo() {
-    String _ImgUrl =
-        'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg';
     
-    //final item = controller.listItems[0];
-    
-
     return Center(
       child: FutureBuilder<BookInfoItem> (
         future: fetchBookInfo(),
@@ -68,13 +57,52 @@ class _BookInfo extends State<BookInfo> {
           } else {
             final bookInfo = snapshot.data;
             return Column (
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text('제목: ${bookInfo!.title.toString()}'),
-                Text('작가: ${bookInfo.writer}'),
-                Text('출판사: ${bookInfo.publisher}'),
-                Text('판매가: \$${bookInfo.price.toStringAsFixed(2)}'),
-                Text('줄거리: ${bookInfo.summary}'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: SizedBox(child: Text('${bookInfo!.title.toString()}',style: TextStyle(fontSize: 18),), height: 40, width: 350,),
+                ),
+                Row(
+                  children: [
+                    SizedBox(width: 15,),
+                    Container(
+                      width: 100,
+                      height: 150,
+                      child: Image.network('https://image.aladin.co.kr/product/31893/32/cover500/k212833749_2.jpg')),
+                      SizedBox(width: 10,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10,),
+                          
+                          //SizedBox(height: 5,),
+                          SizedBox(child: Text('작가: ${bookInfo.writer}',style: TextStyle(fontSize: 18),), height: 40, width: 250,),
+                          //SizedBox(height: 5,),
+                          SizedBox(child: Text('출판사: ${bookInfo.publisher}',style: TextStyle(fontSize: 18),), height: 40, width: 250,),
+                          //SizedBox(height: 5,),
+                          Text('판매가: \$${bookInfo.price.toStringAsFixed(2)}',style: TextStyle(fontSize: 18),),
+                          SizedBox(height: 10,),
+                          
+                        ],
+                        
+                      ),
+                      
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0, left: 15),
+                    child: SizedBox(
+                              width: 350,
+                              height: 100,
+                              child: Text('줄거리: ${bookInfo.summary}',style: TextStyle(fontSize: 18),)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 10),
+                    child: Text('\u{1F4DA} 유사한 책들', style: TextStyle(fontSize: 18),),
+                  ),
               ],
             );
           }
@@ -89,34 +117,45 @@ class _BookInfo extends State<BookInfo> {
     final Uri toLaunch = Uri(scheme: 'https', host: 'www.10x10.co.kr');
 
     return Scaffold(
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
-        crossAxisCount: 3,
-        childAspectRatio: 1 / 1.5,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              _launchInBrowser(toLaunch);
-            },
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 150,
-                    decoration: BoxDecoration(
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                                'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
-                  ),
-                ],
-              ),
+      body: GestureDetector(
+        onTap: () {
+          _launchInBrowser(toLaunch);
+        },
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Row(
+              children: [
+                Container(
+                  width: 120,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
+                ),
+                //SizedBox(width: 10,),
+                Container(
+                  width: 120,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://image.aladin.co.kr/product/32649/26/cover500/8954695973_1.jpg'))),
+                ),
+                Container(
+                  width: 120,
+                  height: 150,
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://image.aladin.co.kr/product/32591/29/cover500/k352935549_2.jpg'))),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -132,22 +171,6 @@ class _BookInfo extends State<BookInfo> {
       ),
     );
   }
-
-  // Widget _getRequestBtn(BuildContext context) {
-  //   return Container(
-  //     child: FloatingActionButton.small(
-  //       child: const Text(""),
-  //       onPressed: () async {
-  //         http.Response _res = await http.get(Uri.parse("$_url/"));
-  //         print(_res.body); //해리포터
-  //         setState(() {
-  //           _bookName = _res.body;
-  //           print(_bookName);
-  //         });
-  //       },
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
