@@ -161,14 +161,12 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _addBook(BuildContext context) {
-    return Container(
-      child: FloatingActionButton.small(
-        child: const Text("+"),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginPage()));
-        },
-      ),
+    return FloatingActionButton.small(
+      child: const Text("+"),
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      },
     );
   }
 
