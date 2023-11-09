@@ -37,12 +37,18 @@ class LoginPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-          onPressed: (() {
+          onPressed: (() async {
             if (_loginFormKey.currentState!.validate() != 0) {
-              sendLoginData(_idController.text, _pwController.text);
-              print(_idController.text.toString());
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => MyBookShelf()));
+              final response = await sendLoginData(_idController.text, _pwController.text);
+              if(response.body.toString() == "로그인에 성공하였습니다.") {
+                print('로그인 성공');
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyBookShelf()));
+              } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {
+                print('로그인 실패');
+              } else {
+                print('오류 발생');
+              }
             }
           }),
           child: Text(
@@ -97,7 +103,9 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> sendLoginData(String? id, String? pw) async {
+
+
+  Future<http.Response> sendLoginData(String? id, String? pw) async {
     try {
       final Map<String, dynamic> requestData = {
         'id': id,
@@ -114,11 +122,16 @@ class LoginPage extends StatelessWidget {
       if (response.statusCode == 200) {
         print('Data sent successfully.');
         print('Response data: ${response.body}');
+        //_loginResponse = response.body;
       } else {
         print('Failed to send data. Status code: ${response.statusCode}');
+        //_loginResponse = "로그인에 실패하였습니다.";
       }
+      return response;
     } catch (e) {
       print('Error sending data: $e');
+      return http.Response('Error: $e', 500);
+      //_loginResponse = "오류 발생: $e";
     }
   }
 

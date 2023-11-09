@@ -36,15 +36,21 @@ class SignUpPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
-          onPressed: (() {
+          onPressed: (() async {
             if (_signUpFormKey.currentState!.validate() != 0) {
-              // print(_idController.text.toString());
               if (_pwController.text == _confirmPwController.text) {
                 print("비밀번호 같음");
-                sendLoginData(_nameController.text, _idController.text,
+                final response = await sendSignupData(_nameController.text, _idController.text,
                     _pwController.text);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                    if(response.body.toString() == "회원가입이 완료되었습니다!") {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    } else if (response.body.toString() == "이미 존재하는 아이디 입니다.") {
+                      print('아이디가 중복됩니다.');
+                    }
+                    else {
+                      print('입력되지않은 정보가 있음');
+                    }
               } else {
                 print("비밀번호 다름");
               }
@@ -102,7 +108,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Future<void> sendLoginData(String? name, String? id, String? pw) async {
+  Future<http.Response> sendSignupData(String? name, String? id, String? pw) async {
     try {
       final Map<String, dynamic> requestData = {
         'name': name,
@@ -123,8 +129,10 @@ class SignUpPage extends StatelessWidget {
       } else {
         print('Failed to send data. Status code: ${response.statusCode}');
       }
+      return response;
     } catch (e) {
       print('Error sending data: $e');
+      return http.Response('Error : $e', 500);
     }
   }
 

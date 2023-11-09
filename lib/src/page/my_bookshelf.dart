@@ -16,7 +16,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(),
+      appBar: PageAppBar(),
       body: MaterialApp(
         home: Container(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
