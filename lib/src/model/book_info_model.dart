@@ -7,6 +7,8 @@ class BookInfoItem {
   final String publisher;
   final int price;
   final String summary;
+  final String cover;
+  final int rating;
   //final double rating;
 
   BookInfoItem(
@@ -15,7 +17,8 @@ class BookInfoItem {
     required this.publisher,
     required this.price,
     required this.summary,
-    //required this.rating,
+    required this.cover,
+    required this.rating,
     }
   );
 
@@ -26,7 +29,8 @@ class BookInfoItem {
       publisher: json['publisher'],
       price: json['price'],
       summary: json['summary'],
-      //rating: json['rating'],
+      cover: json['cover'],
+      rating: json['rating'],
     );
   }
 }

@@ -118,7 +118,7 @@ class _CodeScanState extends State<CodeScan> {
                   ),
                 ),
                 SizedBox(height: 20,),
-                Container(child: Text('책의 바코드를 스캔해주세요 !', style: TextStyle(fontSize: 20),),
+                Container(child: Text('책의 바코드를 스캔해주세요 !', style: TextStyle(fontSize: 15),),
                 )
               ],
             )
@@ -127,7 +127,7 @@ class _CodeScanState extends State<CodeScan> {
               padding: const EdgeInsets.only(top: 20),
               child: Center(
                 child: Text('다른 책을 스캔하고 싶으시면 아래 버튼을 클릭해주세요.',
-                style: TextStyle(fontSize: 20),),
+                style: TextStyle(fontSize: 15),),
             
               ),
             )

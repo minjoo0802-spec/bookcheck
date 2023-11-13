@@ -62,11 +62,11 @@ class _BookInfo extends State<BookInfo> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: SizedBox(
-                    height: 40, 
+                    height: 70, 
                     width: 350,
                     child: Text('\" ${bookInfo!.title.toString()} \"',
                     style: TextStyle(
-                      fontSize: 22, 
+                      fontSize: 20, 
                       fontWeight: FontWeight.bold, 
                       backgroundColor: Colors.black12),),),
                 ),
@@ -76,7 +76,7 @@ class _BookInfo extends State<BookInfo> {
                     Container(
                       width: 100,
                       height: 150,
-                      child: Image.network('https://image.aladin.co.kr/product/31893/32/cover500/k212833749_2.jpg')),
+                      child: Image.network(bookInfo.cover)),
                       SizedBox(width: 10,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +89,9 @@ class _BookInfo extends State<BookInfo> {
                             child: Text('작가  : ${bookInfo.writer}',
                             style: TextStyle(fontSize: 15, fontFamily: 'basic_fonts'),)),
                           SizedBox(height: 40, width: 250,child: Text('출판사: ${bookInfo.publisher}',style: TextStyle(fontSize: 15),),),
-                          Text('판매가: \$${bookInfo.price.toStringAsFixed(2)}',style: TextStyle(fontSize: 15),),
+                          Text('판매가: ${bookInfo.price} 원',style: TextStyle(fontSize: 15),),
+                          SizedBox(height: 10,),
+                          Text('평점: ${bookInfo.rating}',style: TextStyle(fontSize: 15),),
                           SizedBox(height: 10,),
                           
                         ],

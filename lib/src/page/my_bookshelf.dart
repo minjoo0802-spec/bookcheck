@@ -1,10 +1,12 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_report_review.dart';
 import 'package:bookscan_1/src/page/book_review.dart';
+import 'package:bookscan_1/src/page/code_scan.dart';
+import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 
 class MyBookShelf extends StatefulWidget {
-  const MyBookShelf({super.key});
+  const MyBookShelf({super.key, required bool isLoggedIn});
 
   @override
   State<MyBookShelf> createState() => _MyBookShelfState();
@@ -13,136 +15,168 @@ class MyBookShelf extends StatefulWidget {
 class _MyBookShelfState extends State<MyBookShelf> {
   final List<Map> booktool = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PageAppBar(),
-      body: MaterialApp(
-        home: Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child: Scaffold(
-            body: GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                crossAxisCount: 3,
-                childAspectRatio: 1 / 1.7,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BookReviewPage()));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.7),
-                              spreadRadius: 0,
-                              blurRadius: 0,
-                              offset: Offset(0, 3),
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            child: Image(
-                              image: AssetImage(
-                                  'assets/images/my_bookshelf_image/book_sample.jpg'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 6),
-                            child: Text("sample1"),
-                          )
-                        ],
+  Widget dialogMs() {
+  return AlertDialog(
+    content: Text('로그인이 필요한 서비스입니다. \n 로그인 하시겠습니까?'),
+    actions: <Widget>[
+      TextButton(
+        onPressed: () {
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => LoginPage()));
+        },
+        child: Text('로그인')),
+      TextButton(
+        onPressed: () {
+          Navigator.push(context, 
+            MaterialPageRoute(builder: (context) => CodeScan()));
+        }, 
+        child: Text('닫기')),
+      ],
+    );
+  }
+
+  Widget bookshelfSample() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      child: Scaffold(
+        body: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15,
+            crossAxisCount: 3,
+            childAspectRatio: 1 / 1.7,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BookReviewPage()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                          offset: Offset(0, 3),
+                        )
+                      ]),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        child: Image(
+                          image: AssetImage(
+                              'assets/images/my_bookshelf_image/book_sample.jpg'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text("sample1"),
+                      )
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(context: context, builder: (context) {
-                        return Dialog(child: BookReportReviewPage());
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.7),
-                              spreadRadius: 0,
-                              blurRadius: 0,
-                              offset: Offset(0, 3),
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            child: Image(
-                              image: AssetImage(
-                                  'assets/images/my_bookshelf_image/book_sample.jpg'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 6),
-                            child: Text("sample2"),
-                          )
-                        ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  showDialog(context: context, builder: (context) {
+                    return Dialog(child: BookReportReviewPage());
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                          offset: Offset(0, 3),
+                        )
+                      ]),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        child: Image(
+                          image: AssetImage(
+                              'assets/images/my_bookshelf_image/book_sample.jpg'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text("sample2"),
+                      )
+                    ],
                   ),
-                  Container(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.7),
-                              spreadRadius: 0,
-                              blurRadius: 0,
-                              offset: Offset(0, 3),
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            child: Image(
-                              image: AssetImage(
-                                  'assets/images/my_bookshelf_image/book_sample.jpg'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 6),
-                            child: Text("sample3"),
-                          )
-                        ],
+                ),
+              ),
+              Container(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                          offset: Offset(0, 3),
+                        )
+                      ]),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        child: Image(
+                          image: AssetImage(
+                              'assets/images/my_bookshelf_image/book_sample.jpg'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text("sample3"),
+                      )
+                    ],
                   ),
-                ]),
-          ),
-        ),
+                ),
+              ),
+            ]),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // if (widget.isLoggedIn) {
+      return Scaffold(
+        appBar: MainAppBar(),
+        body: bookshelfSample(),
+      );
+    // } else {
+    //   dialogMs();
+    //   return Scaffold(
+    //     appBar: MainAppBar(),
+    //     body: Container(),
+    //   );
+    // }
+
+    
   }
 }

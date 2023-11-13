@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/image_data.dart';
 
+int currentPageIndex = 0;
+
 class App extends GetView<BottomNavController> {
   const App({super.key});
   @override
@@ -20,13 +22,11 @@ class App extends GetView<BottomNavController> {
             children: [
               WillPopScope(
                 onWillPop: () async {
-                  int currentPageIndex = controller.pageIndex.value;
-
+                  currentPageIndex = controller.pageIndex.value;
                   if (currentPageIndex > 0) {
                     controller.changeBottomNav(currentPageIndex - 1);
                     return false;
                   }
-
                   return true;
                 },
                 child: Navigator(
@@ -38,7 +38,7 @@ class App extends GetView<BottomNavController> {
               ),
               TimeLinePage(),
               Shop(),
-              MyBookShelf(),
+              MyBookShelf(isLoggedIn: false,),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

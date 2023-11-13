@@ -1,28 +1,28 @@
 import 'dart:convert';
-
+import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
+import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  LoginPage({super.key, required this.isLoggedIn});
 
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
+  App app = App();
+
+  late final bool isLoggedIn;
+
   final String _url = "http://10.101.97.210:3000"; // 현서꺼
-    // final String _url = "http://10.101.52.221:3000"; //내꺼
 
-  // String userName = '';
-  // String userEmail = '';
-  //String userPw = '';
-
-// context => 앱이 돌아가는 정보
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -38,12 +38,18 @@ class LoginPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20)),
               backgroundColor: Color.fromRGBO(255, 220, 210, 1)),
           onPressed: (() async {
+            // ignore: unrelated_type_equality_checks
             if (_loginFormKey.currentState!.validate() != 0) {
               final response = await sendLoginData(_idController.text, _pwController.text);
               if(response.body.toString() == "로그인에 성공하였습니다.") {
                 print('로그인 성공');
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyBookShelf()));
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setString('token', 'user_token_here');
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => CodeScan()));
+                app.controller.pageIndex.value = 3;
+                isLoggedIn = true;
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {
                 print('로그인 실패');
               } else {
