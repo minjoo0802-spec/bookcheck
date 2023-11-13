@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'basic_fonts',
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       ),
       initialBinding: InitBinding(),
       home: App(),
-    );
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child ?? Container(),
+    ),);
   }
 }

@@ -61,7 +61,14 @@ class _BookInfo extends State<BookInfo> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: SizedBox(child: Text('${bookInfo!.title.toString()}',style: TextStyle(fontSize: 18),), height: 40, width: 350,),
+                  child: SizedBox(
+                    height: 40, 
+                    width: 350,
+                    child: Text('\" ${bookInfo!.title.toString()} \"',
+                    style: TextStyle(
+                      fontSize: 22, 
+                      fontWeight: FontWeight.bold, 
+                      backgroundColor: Colors.black12),),),
                 ),
                 Row(
                   children: [
@@ -76,13 +83,13 @@ class _BookInfo extends State<BookInfo> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 10,),
-                          
-                          //SizedBox(height: 5,),
-                          SizedBox(child: Text('작가: ${bookInfo.writer}',style: TextStyle(fontSize: 18),), height: 40, width: 250,),
-                          //SizedBox(height: 5,),
-                          SizedBox(child: Text('출판사: ${bookInfo.publisher}',style: TextStyle(fontSize: 18),), height: 40, width: 250,),
-                          //SizedBox(height: 5,),
-                          Text('판매가: \$${bookInfo.price.toStringAsFixed(2)}',style: TextStyle(fontSize: 18),),
+                          SizedBox(
+                            height: 40, 
+                            width: 250,
+                            child: Text('작가  : ${bookInfo.writer}',
+                            style: TextStyle(fontSize: 15, fontFamily: 'basic_fonts'),)),
+                          SizedBox(height: 40, width: 250,child: Text('출판사: ${bookInfo.publisher}',style: TextStyle(fontSize: 15),),),
+                          Text('판매가: \$${bookInfo.price.toStringAsFixed(2)}',style: TextStyle(fontSize: 15),),
                           SizedBox(height: 10,),
                           
                         ],
@@ -95,8 +102,8 @@ class _BookInfo extends State<BookInfo> {
                     padding: const EdgeInsets.only(top: 15.0, left: 15),
                     child: SizedBox(
                               width: 350,
-                              height: 100,
-                              child: Text('줄거리: ${bookInfo.summary}',style: TextStyle(fontSize: 18),)),
+                              height: 200,
+                              child: Text('줄거리: ${bookInfo.summary}',style: TextStyle(fontSize: 15),)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, left: 10),

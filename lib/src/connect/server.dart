@@ -6,11 +6,11 @@ class ServerConnect {
   final Uri _url = Uri.parse("http://10.101.97.210:3000"); // 현서꺼
   //final Uri _url = Uri.parse("http://10.101.52.221:3000"); //내꺼
 
-  Future<void> sendData(String? data) async {
+  Future<void> sendData(String? isbn) async {
     try {
 
       final Map<String, dynamic> requestData = {
-        'data': data,
+        'isbn': isbn,
       };
       final response = await http.post(
         Uri.parse("$_url/post"),
