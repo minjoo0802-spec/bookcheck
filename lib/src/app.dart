@@ -36,9 +36,55 @@ class App extends GetView<BottomNavController> {
                   },
                 ),
               ),
-              TimeLinePage(),
-              Shop(),
-              MyBookShelf(isLoggedIn: false,),
+              WillPopScope(
+                onWillPop: () async {
+                  currentPageIndex = controller.pageIndex.value;
+                  if (currentPageIndex > 0) {
+                    controller.changeBottomNav(currentPageIndex - 1);
+                    return false;
+                  }
+                  return true;
+                },
+                child: Navigator(
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                        builder: (context) => TimeLinePage());
+                  },
+                ),
+              ),
+              WillPopScope(
+                onWillPop: () async {
+                  currentPageIndex = controller.pageIndex.value;
+                  if (currentPageIndex > 0) {
+                    controller.changeBottomNav(currentPageIndex - 1);
+                    return false;
+                  }
+                  return true;
+                },
+                child: Navigator(
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                        builder: (context) => Shop());
+                  },
+                ),
+              ),
+              
+              WillPopScope(
+                onWillPop: () async {
+                  currentPageIndex = controller.pageIndex.value;
+                  if (currentPageIndex > 0) {
+                    controller.changeBottomNav(currentPageIndex - 1);
+                    return false;
+                  }
+                  return true;
+                },
+                child: Navigator(
+                  onGenerateRoute: (routeSettings) {
+                    return MaterialPageRoute(
+                        builder: (context) => MyBookShelf());
+                  },
+                ),
+              ),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

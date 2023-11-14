@@ -5,13 +5,12 @@ import 'package:get/get.dart';
 import 'src/app.dart';
 
 void main() {
-  runApp(MyApp(isLoggedIn: false,));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLoggedIn;
 
-   const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
+   const MyApp({Key? key}) : super(key: key);
 
   // const MyApp({super.key});
 

@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'package:bookscan_1/src/app.dart';
+import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
-import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
-import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key, required this.isLoggedIn});
+  LoginPage({super.key});
 
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
@@ -25,9 +25,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AuthController());
     final Size size = MediaQuery.of(context).size;
 
+
     Widget _authButton(Size size) {
+      final AuthController authController = Get.find();
+
       return Positioned(
         left: size.width * 0.15,
         right: size.width * 0.1,
@@ -48,8 +52,8 @@ class LoginPage extends StatelessWidget {
                 // ignore: use_build_context_synchronously
                 Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => CodeScan()));
+                authController.login();
                 app.controller.pageIndex.value = 3;
-                isLoggedIn = true;
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {
                 print('로그인 실패');
               } else {
