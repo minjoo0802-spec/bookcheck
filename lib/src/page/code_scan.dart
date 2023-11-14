@@ -34,6 +34,7 @@ class _CodeScanState extends State<CodeScan> {
     setState(() {
       //_camState = false;
       _qrInfo = code; // code => isbn
+      //_server.sendData(code);
     });
       Navigator.push(
       context,
@@ -43,7 +44,7 @@ class _CodeScanState extends State<CodeScan> {
 
   _scanCode() {
     setState(() {
-      _camState = true;
+      _camState = !_camState;
     });
   }
 
@@ -104,9 +105,9 @@ class _CodeScanState extends State<CodeScan> {
                         _qrInfo = code;
                         print(code);
                         _server.sendData(code);
-                        setState(() {
-                          _camState = false;
-                        });
+                        // setState(() {
+                        //   _camState = false;
+                        // });
                         // + 서버에 데이터 요청
                         // + 서버에서 받은 데이터 전달
                         Navigator.push(

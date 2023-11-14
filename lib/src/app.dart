@@ -10,7 +10,10 @@ import 'components/image_data.dart';
 int currentPageIndex = 0;
 
 class App extends GetView<BottomNavController> {
-  const App({super.key});
+  App({super.key});
+
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -22,12 +25,7 @@ class App extends GetView<BottomNavController> {
             children: [
               WillPopScope(
                 onWillPop: () async {
-                  currentPageIndex = controller.pageIndex.value;
-                  if (currentPageIndex > 0) {
-                    controller.changeBottomNav(currentPageIndex - 1);
-                    return false;
-                  }
-                  return true;
+                  return !await navigatorKey.currentState!.maybePop();
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
@@ -38,12 +36,7 @@ class App extends GetView<BottomNavController> {
               ),
               WillPopScope(
                 onWillPop: () async {
-                  currentPageIndex = controller.pageIndex.value;
-                  if (currentPageIndex > 0) {
-                    controller.changeBottomNav(currentPageIndex - 1);
-                    return false;
-                  }
-                  return true;
+                  return !await navigatorKey.currentState!.maybePop();
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
@@ -54,12 +47,7 @@ class App extends GetView<BottomNavController> {
               ),
               WillPopScope(
                 onWillPop: () async {
-                  currentPageIndex = controller.pageIndex.value;
-                  if (currentPageIndex > 0) {
-                    controller.changeBottomNav(currentPageIndex - 1);
-                    return false;
-                  }
-                  return true;
+                  return !await navigatorKey.currentState!.maybePop();
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
@@ -71,12 +59,7 @@ class App extends GetView<BottomNavController> {
               
               WillPopScope(
                 onWillPop: () async {
-                  currentPageIndex = controller.pageIndex.value;
-                  if (currentPageIndex > 0) {
-                    controller.changeBottomNav(currentPageIndex - 1);
-                    return false;
-                  }
-                  return true;
+                  return !await navigatorKey.currentState!.maybePop();
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {

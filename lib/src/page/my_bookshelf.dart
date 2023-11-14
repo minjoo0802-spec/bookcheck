@@ -69,14 +69,14 @@ class _MyBookShelfState extends State<MyBookShelf> {
     actions: <Widget>[
       TextButton(
         onPressed: () {
-          Get.to(LoginPage());
-          // Navigator.push(context,
-          //   MaterialPageRoute(builder: (context) => LoginPage()));
+          //Get.to(LoginPage());
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => LoginPage()));
         },
         child: Text('로그인')),
       TextButton(
         onPressed: () {
-          app.controller.pageIndex.value = 3;
+          app.controller.pageIndex.value = 0;
           // Navigator.push(context, 
           //   MaterialPageRoute(builder: (context) => CodeScan()));
         }, 
@@ -234,7 +234,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
           print('isLoggedIn = false');
           return Stack(
             children: [
-              loginbtn(),
+              //loginbtn(),
               dialogMs(),]);
          }
       }),
