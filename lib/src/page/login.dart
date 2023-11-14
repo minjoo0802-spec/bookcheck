@@ -50,19 +50,26 @@ class LoginPage extends StatelessWidget {
               final response = await sendLoginData(_idController.text, _pwController.text);
               if(response.body.toString() == "로그인에 성공하였습니다.") {
                 print('로그인 성공');
-                // SharedPreferences prefs = await SharedPreferences.getInstance();
-                // await prefs.setString('token', 'user_token_here');
-                // ignore: use_build_context_synchronously
-                // app.controller.pageIndex.value = 0;
                 
                 final previousRoute = currentRoute?.settings;
-                if(previousRoute != null) {
-                  print('previous argument = ${previousRoute.arguments}');
+                // if(previousRoute != null) {
+                //   print('previous argument = ${previousRoute.arguments}');
+                // }
+                if(previousRoute!.arguments == "BookInfo -> Login") {
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => CodeScan()));
+                  authController.login();
+                  app.controller.pageIndex.value = 3;
                 }
-                // Navigator.pushReplacement(context,
-                //   MaterialPageRoute(builder: (context) => CodeScan()));
-                // authController.login();
-                // app.controller.pageIndex.value = 3;
+                else if (previousRoute!.arguments == "MyBookShelf -> Login") {
+                  // ignore: use_build_context_synchronously
+                  // Navigator.pushReplacement(context,
+                  //   MaterialPageRoute(builder: (context) => CodeScan()));
+                  authController.login();
+                  Navigator.pop(context);
+                }
+
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {
                 print('로그인 실패');
               } else {

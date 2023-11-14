@@ -69,9 +69,9 @@ class _MyBookShelfState extends State<MyBookShelf> {
     actions: <Widget>[
       TextButton(
         onPressed: () {
-          //Get.to(LoginPage());
           Navigator.push(context,
-            MaterialPageRoute(builder: (context) => LoginPage()));
+            MaterialPageRoute(builder: (context) => LoginPage(),
+            settings: RouteSettings(arguments: "MyBookShelf -> Login")));
         },
         child: Text('로그인')),
       TextButton(

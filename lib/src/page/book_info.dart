@@ -173,7 +173,8 @@ class _BookInfo extends State<BookInfo> {
       child: const Text("+"),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => LoginPage(),
+            settings: RouteSettings(arguments: "BookInfo -> Login")));
       },
     );
   }
