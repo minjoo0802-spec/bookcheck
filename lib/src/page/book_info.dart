@@ -6,20 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
+import '../connect/server.dart';
 import '../model/book_info_model.dart';
 
 class BookInfo extends StatefulWidget {
-  const BookInfo({super.key});
+  final String? qrCode;
+  const BookInfo({super.key, this.qrCode});
 
   @override
-  _BookInfo createState() => _BookInfo();
+  _BookInfo createState() => _BookInfo(qrCode);
 }
 
 class _BookInfo extends State<BookInfo> {
-  BookInfo({key}) {}
-  _BookInfo();
+  // BookInfo({key}) {}
 
-    Future<BookInfoItem> fetchBookInfo() async {
+  final ServerConnect _server = ServerConnect();
+  final String? qrCode;
+
+  _BookInfo(this.qrCode);
+
+  Future<BookInfoItem> fetchBookInfo() async {
     final response =
       await http.post(Uri.parse("http://10.101.97.210:3000/book_info"));
     if (response.statusCode == 200) {
@@ -169,9 +175,12 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _addBook(BuildContext context) {
+
+
     return FloatingActionButton.small(
       child: const Text("+"),
       onPressed: () {
+        _server.sendUserData("11", qrCode);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage(),
             settings: RouteSettings(arguments: "BookInfo -> Login")));

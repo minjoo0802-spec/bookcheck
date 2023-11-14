@@ -44,7 +44,7 @@ class _CodeScanState extends State<CodeScan> {
 
   _scanCode() {
     setState(() {
-      _camState = !_camState;
+      _camState = true;
     });
   }
 
@@ -104,15 +104,15 @@ class _CodeScanState extends State<CodeScan> {
                       if (_camState) {
                         _qrInfo = code;
                         print(code);
-                        _server.sendData(code);
-                        // setState(() {
-                        //   _camState = false;
-                        // });
+                        _server.sendBookData(code);
+                        setState(() {
+                          _camState = false;
+                        });
                         // + 서버에 데이터 요청
                         // + 서버에서 받은 데이터 전달
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BookInfo()),
+                          MaterialPageRoute(builder: (context) => BookInfo(qrCode: code)),
                         );
                       }
                     },

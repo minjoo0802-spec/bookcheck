@@ -34,7 +34,6 @@ class LoginPage extends StatelessWidget {
 
     Widget _authButton(Size size) {
       final AuthController authController = Get.find();
-
       return Positioned(
         left: size.width * 0.15,
         right: size.width * 0.1,
@@ -67,6 +66,7 @@ class LoginPage extends StatelessWidget {
                   // Navigator.pushReplacement(context,
                   //   MaterialPageRoute(builder: (context) => CodeScan()));
                   authController.login();
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 }
 
