@@ -30,17 +30,17 @@ class _CodeScanState extends State<CodeScan> {
     print(str);
   }
 
-  _qrCallback(String? code) {
-    setState(() {
-      //_camState = false;
-      _qrInfo = code; // code => isbn
-      //_server.sendData(code);
-    });
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BookInfo()),
-    );
-  }
+  // _qrCallback(String? code) {
+  //   setState(() {
+  //     //_camState = false;
+  //     _qrInfo = code; // code => isbn
+  //     //_server.sendData(code);
+  //   });
+  //     Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => BookInfo()),
+  //   );
+  // }
 
   _scanCode() {
     setState(() {

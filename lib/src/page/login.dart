@@ -3,6 +3,7 @@ import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
+import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:bookscan_1/src/page/signup.dart';
@@ -11,8 +12,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../connect/server.dart';
+
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  LoginPage({super.key, this.id, this.qrCode});
 
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _idController = TextEditingController();
@@ -20,8 +23,10 @@ class LoginPage extends StatelessWidget {
 
   App app = App();
 
-  late final bool isLoggedIn;
-  
+
+  final ServerConnect _server = ServerConnect();
+  final String? id;
+  final String? qrCode;
 
   final String _url = "http://10.101.97.210:3000"; // 현서꺼
 
@@ -29,7 +34,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(AuthController());
     final Size size = MediaQuery.of(context).size;
-    final currentRoute = ModalRoute.of(context);
+    //final currentRoute = ModalRoute.of(context);
+
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
 
 
     Widget _authButton(Size size) {
@@ -49,22 +56,22 @@ class LoginPage extends StatelessWidget {
               final response = await sendLoginData(_idController.text, _pwController.text);
               if(response.body.toString() == "로그인에 성공하였습니다.") {
                 print('로그인 성공');
-                
-                final previousRoute = currentRoute?.settings;
-                // if(previousRoute != null) {
-                //   print('previous argument = ${previousRoute.arguments}');
-                // }
-                if(previousRoute!.arguments == "BookInfo -> Login") {
+                //final previousRoute = currentRoute?.settings;
+                if(arguments?['name'] == "BookInfo -> Login") {
                   // ignore: use_build_context_synchronously
                   Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => CodeScan()));
+                    MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: arguments?['qrCode']),
+                    settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
+                  print(arguments?['id']); // null
+                  print(arguments?['qrCode']); // 제대로
+                  _server.sendUserData(_idController.text, arguments?['qrCode']);
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
                   authController.login();
                   app.controller.pageIndex.value = 3;
                 }
-                else if (previousRoute!.arguments == "MyBookShelf -> Login") {
+                else if (arguments?['name'] == "MyBookShelf -> Login") {
                   // ignore: use_build_context_synchronously
-                  // Navigator.pushReplacement(context,
-                  //   MaterialPageRoute(builder: (context) => CodeScan()));
                   authController.login();
                   // ignore: use_build_context_synchronously
                   Navigator.pop(context);

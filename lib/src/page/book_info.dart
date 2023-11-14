@@ -1,29 +1,36 @@
 import 'dart:convert';
 
+import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
+import '../app.dart';
 import '../connect/server.dart';
 import '../model/book_info_model.dart';
 
 class BookInfo extends StatefulWidget {
-  final String? qrCode;
-  const BookInfo({super.key, this.qrCode});
+  final String? id, qrCode;
+  const BookInfo({this.id, this.qrCode});
 
   @override
-  _BookInfo createState() => _BookInfo(qrCode);
+  _BookInfo createState() => _BookInfo(id, qrCode);
 }
 
 class _BookInfo extends State<BookInfo> {
   // BookInfo({key}) {}
+  final AuthController authController = Get.find();
 
   final ServerConnect _server = ServerConnect();
+  final String? id;
   final String? qrCode;
 
-  _BookInfo(this.qrCode);
+  App app = App();
+
+  _BookInfo(this.id, this.qrCode);
 
   Future<BookInfoItem> fetchBookInfo() async {
     final response =
@@ -175,21 +182,28 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _addBook(BuildContext context) {
-
-
     return FloatingActionButton.small(
       child: const Text("+"),
       onPressed: () {
-        _server.sendUserData("11", qrCode);
-        Navigator.push(
+        if(authController.isLoggedIn.value == true) {
+          // print(id);
+          // print(qrCode);
+          //_server.sendUserData(arguments?['id'], arguments?['qrCode']);
+          _server.sendUserData(id, qrCode);
+          app.controller.pageIndex.value = 3;
+        } else {
+          Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage(),
-            settings: RouteSettings(arguments: "BookInfo -> Login")));
-      },
+            settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
+            
+        }
+      }
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     return Scaffold(
       appBar: PageAppBar(),
       body: Padding(
