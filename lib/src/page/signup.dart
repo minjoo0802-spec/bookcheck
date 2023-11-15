@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:bookscan_1/src/connect/server.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -15,13 +13,8 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _pwController = TextEditingController();
   final TextEditingController _confirmPwController = TextEditingController();
 
-  final String _url = "http://10.101.97.210:3000";
+  final ServerConnect _server = ServerConnect();
 
-  // String userName = '';
-  // String userEmail = '';
-  //String userPw = '';
-
-// context => 앱이 돌아가는 정보
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -40,17 +33,19 @@ class SignUpPage extends StatelessWidget {
             if (_signUpFormKey.currentState!.validate() != 0) {
               if (_pwController.text == _confirmPwController.text) {
                 print("비밀번호 같음");
-                final response = await sendSignupData(_nameController.text, _idController.text,
+                final response = await _server.sendSignupData(
+                    _nameController.text,
+                    _idController.text,
                     _pwController.text);
-                    if(response.body.toString() == "회원가입이 완료되었습니다!") {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                    } else if (response.body.toString() == "이미 존재하는 아이디 입니다.") {
-                      print('아이디가 중복됩니다.');
-                    }
-                    else {
-                      print('입력되지않은 정보가 있음');
-                    }
+                if (response.body.toString() == "회원가입이 완료되었습니다!") {
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                } else if (response.body.toString() == "이미 존재하는 아이디 입니다.") {
+                  print('아이디가 중복됩니다.');
+                } else {
+                  print('입력되지않은 정보가 있음');
+                }
               } else {
                 print("비밀번호 다름");
               }
@@ -106,34 +101,6 @@ class SignUpPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<http.Response> sendSignupData(String? name, String? id, String? pw) async {
-    try {
-      final Map<String, dynamic> requestData = {
-        'name': name,
-        'id': id,
-        'pw': pw,
-      };
-      final response = await http.post(
-        Uri.parse("$_url/register"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
-      );
-
-      if (response.statusCode == 200) {
-        print('Data sent successfully.');
-        print('Response data: ${response.body}');
-      } else {
-        print('Failed to send data. Status code: ${response.statusCode}');
-      }
-      return response;
-    } catch (e) {
-      print('Error sending data: $e');
-      return http.Response('Error : $e', 500);
-    }
   }
 
   Widget _inputForm(Size size) {
@@ -230,16 +197,4 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
-
-  // Widget get DrawerUpDown {
-  //   return Drawer(
-  //     child: ListView(
-  //       children: <Widget>[
-  //         UserAccountsDrawerHeader(
-  //           accountName: Text('MinJoo'),
-  //           accountEmail: Text('drgdrgdrg@naver.com')),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
