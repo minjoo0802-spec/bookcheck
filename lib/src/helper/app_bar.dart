@@ -6,15 +6,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // leading: IconButton(
-      //   icon: Icon(
-      //     Icons.menu,
-      //     color: Colors.black,
-      //   ),
-      //   onPressed: () {
-      //     // Navigator.of(context).pop();
-      //   },
-      // ),
       title: Image.asset(
         'assets/images/app_bar_icon/logo.png',
         width: 55,
@@ -57,10 +48,9 @@ class PageAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class ScanAgainAppBar extends StatelessWidget implements PreferredSizeWidget {
-  ScanAgainAppBar({required this.scanAgainCallback, super.key});
+  const ScanAgainAppBar({required this.scanAgainCallback, super.key});
 
   final VoidCallback scanAgainCallback;
-
 
   @override
   Widget build(BuildContext context) {

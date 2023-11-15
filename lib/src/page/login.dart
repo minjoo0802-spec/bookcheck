@@ -25,7 +25,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(AuthController());
     final Size size = MediaQuery.of(context).size;
-    //final currentRoute = ModalRoute.of(context);
 
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
@@ -48,9 +47,7 @@ class LoginPage extends StatelessWidget {
                   _idController.text, _pwController.text);
               if (response.body.toString() == "로그인에 성공하였습니다.") {
                 print('로그인 성공');
-                //final previousRoute = currentRoute?.settings;
                 if (arguments?['name'] == "BookInfo -> Login") {
-                  //print("id"+ _idController.text);
                   // ignore: use_build_context_synchronously
                   Navigator.push(
                       context,
@@ -58,12 +55,9 @@ class LoginPage extends StatelessWidget {
                         builder: (context) =>
                             BookInfo(id: _idController.text, qrCode: qrCode),
                       ));
-                  // settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
 
                   _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
-                  // Navigator.pop(context);
-                  // Navigator.pop(context);
                   authController.login();
                   app.controller.pageIndex.value = 3;
                 }

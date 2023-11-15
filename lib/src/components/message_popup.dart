@@ -6,7 +6,7 @@ class MessagePopup extends StatelessWidget {
   final String? message;
   final Function()? okCallback;
   final Function()? cancelCallback;
-  MessagePopup({
+  const MessagePopup({
     Key? key,
     required this.title,
     required this.message,

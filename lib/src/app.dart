@@ -29,8 +29,7 @@ class App extends GetView<BottomNavController> {
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                        builder: (context) => CodeScan());
+                    return MaterialPageRoute(builder: (context) => CodeScan());
                   },
                 ),
               ),
@@ -51,12 +50,10 @@ class App extends GetView<BottomNavController> {
                 },
                 child: Navigator(
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                        builder: (context) => Shop());
+                    return MaterialPageRoute(builder: (context) => Shop());
                   },
                 ),
               ),
-              
               WillPopScope(
                 onWillPop: () async {
                   return !await navigatorKey.currentState!.maybePop();
