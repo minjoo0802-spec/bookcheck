@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/login.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
-
 import '../app.dart';
 import '../connect/server.dart';
 import '../model/book_info_model.dart';
@@ -186,25 +184,23 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _addBook(BuildContext context) {
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    //final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     return FloatingActionButton.small(
       child: const Text("+"),
       onPressed: () {
         if(authController.isLoggedIn.value == true) {
-
           // Navigator.push(
-          //   context, MaterialPageRoute(builder: (context) => LoginPage()));
+          //   context, MaterialPageRoute(builder: (context) => LoginPage(id: id, qrCode: qrCode,),
+          //   settings: RouteSettings(arguments: {'name': "BookInfo -> Login"})));
           // Navigator.pop(context);
-
-          print(qrCode);
           _server.sendUserData(id, qrCode);
           // print('id : ${arguments?['id']}');
           print('id : $id');
           app.controller.pageIndex.value = 3;
         } else {
-          // id -> null 일거임
           Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage(id: id, qrCode: qrCode,),
+            settings: RouteSettings(arguments: {'name': "BookInfo -> Login"})
             // settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
             ));
           //print('qrcode : $qrCode');
@@ -223,7 +219,6 @@ class _BookInfo extends State<BookInfo> {
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(id.toString()),
             _bookInfo(),
             Expanded(child: _bookSimilar()),
             _addBook(context),
