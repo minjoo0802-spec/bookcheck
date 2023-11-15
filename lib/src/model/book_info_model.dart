@@ -8,7 +8,7 @@ class BookInfoItem {
   final int price;
   final String summary;
   final String cover;
-  final int rating;
+  final double rating;
   //final double rating;
 
   BookInfoItem(

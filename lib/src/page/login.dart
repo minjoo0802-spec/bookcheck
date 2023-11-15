@@ -59,10 +59,12 @@ class LoginPage extends StatelessWidget {
                 //final previousRoute = currentRoute?.settings;
                 if(arguments?['name'] == "BookInfo -> Login") {
                   // ignore: use_build_context_synchronously
-                  Navigator.push(context,                   //BookInfo(id: _idController.text, qrCode: arguments?['qrCode'])
-                    MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: arguments?['qrCode']),
-                    settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
-                  _server.sendUserData(_idController.text, arguments?['qrCode']);
+                  //print("id"+ _idController.text);
+                  Navigator.push(context,                   
+                    MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: qrCode),
+                    // settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
+                    ));
+                  _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                   Navigator.pop(context);
@@ -70,10 +72,25 @@ class LoginPage extends StatelessWidget {
                   app.controller.pageIndex.value = 3;
                 }
                 else if (arguments?['name'] == "MyBookShelf -> Login") {
+                  print("id"+ _idController.text);
                   // ignore: use_build_context_synchronously
                   authController.login();
                   // ignore: use_build_context_synchronously
                   Navigator.pop(context);
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(context,                   //BookInfo(id: _idController.text, qrCode: arguments?['qrCode'])
+                    MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: arguments?['qrCode']),
+                    settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
+                  Navigator.pop(context);
+                  
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(context,                   
+                    MaterialPageRoute(builder: (context) => CodeScan(),
+                    settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
+                  Navigator.pop(context);
+                  //print('id : ${_idController.text}');
+
+                
                 }
 
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {

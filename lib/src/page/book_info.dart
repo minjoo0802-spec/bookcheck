@@ -21,12 +21,14 @@ class BookInfo extends StatefulWidget {
 }
 
 class _BookInfo extends State<BookInfo> {
+  final String? id;
+  final String? qrCode;
+
   // BookInfo({key}) {}
   final AuthController authController = Get.find();
 
   final ServerConnect _server = ServerConnect();
-  final String? id;
-  final String? qrCode;
+  
 
   App app = App();
 
@@ -189,14 +191,23 @@ class _BookInfo extends State<BookInfo> {
       child: const Text("+"),
       onPressed: () {
         if(authController.isLoggedIn.value == true) {
+
+          // Navigator.push(
+          //   context, MaterialPageRoute(builder: (context) => LoginPage()));
+          // Navigator.pop(context);
+
           print(qrCode);
-          _server.sendUserData(arguments?['id'], qrCode);
+          _server.sendUserData(id, qrCode);
+          // print('id : ${arguments?['id']}');
+          print('id : $id');
           app.controller.pageIndex.value = 3;
         } else {
+          // id -> null 일거임
           Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage(),
-            settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
-          print('qrcode : $qrCode');
+            context, MaterialPageRoute(builder: (context) => LoginPage(id: id, qrCode: qrCode,),
+            // settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
+            ));
+          //print('qrcode : $qrCode');
         }
       }
     );
@@ -212,6 +223,7 @@ class _BookInfo extends State<BookInfo> {
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(id.toString()),
             _bookInfo(),
             Expanded(child: _bookSimilar()),
             _addBook(context),
@@ -222,3 +234,4 @@ class _BookInfo extends State<BookInfo> {
     );
   }
 }
+

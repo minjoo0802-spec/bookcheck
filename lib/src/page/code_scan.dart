@@ -82,6 +82,8 @@ class _CodeScanState extends State<CodeScan> {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    
     return Scaffold(
       appBar: MainAppBar(),
       resizeToAvoidBottomInset: false,
@@ -112,8 +114,9 @@ class _CodeScanState extends State<CodeScan> {
                         // + 서버에서 받은 데이터 전달
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BookInfo(qrCode: code)),
+                          MaterialPageRoute(builder: (context) => BookInfo(id: arguments?['id'], qrCode: code!)),
                         );
+                        //print('id : ${arguments?['id']}');
                       }
                     },
                   ),
