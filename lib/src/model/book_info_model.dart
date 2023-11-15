@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 class BookInfoItem {
   final String title;
@@ -9,18 +8,16 @@ class BookInfoItem {
   final String summary;
   final String cover;
   final double rating;
-  //final double rating;
 
-  BookInfoItem(
-    {required this.title,
+  BookInfoItem({
+    required this.title,
     required this.writer,
     required this.publisher,
     required this.price,
     required this.summary,
     required this.cover,
     required this.rating,
-    }
-  );
+  });
 
   factory BookInfoItem.fromJson(Map<String, dynamic> json) {
     return BookInfoItem(

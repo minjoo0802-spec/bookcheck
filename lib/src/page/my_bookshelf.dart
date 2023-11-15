@@ -1,28 +1,19 @@
 import 'dart:convert';
-
 import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
-import 'package:bookscan_1/src/page/book_report_review.dart';
-import 'package:bookscan_1/src/page/book_review.dart';
-import 'package:bookscan_1/src/page/code_scan.dart';
 import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
-
 import '../model/book_shelf_model.dart';
-
 
 class MyBookShelf extends StatefulWidget {
   final String? id, qrCode;
   const MyBookShelf({Key? key, this.id, this.qrCode}) : super(key: key);
-  
 
   @override
   State<MyBookShelf> createState() => _MyBookShelfState();
-  
 }
 
 class _MyBookShelfState extends State<MyBookShelf> {
@@ -32,16 +23,21 @@ class _MyBookShelfState extends State<MyBookShelf> {
   final AuthController authController = Get.find();
 
   late List<Book> books;
-  
+
   App app = App();
 
   Widget loginbtn() {
     return TextButton(
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => LoginPage(id: id, qrCode: qrCode,)));
-    }, 
-    child: Text('로그인하기'));
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => LoginPage(
+                        id: id,
+                        qrCode: qrCode,
+                      )));
+        },
+        child: Text('로그인하기'));
   }
 
   Widget logOutBtn() {
@@ -53,39 +49,29 @@ class _MyBookShelfState extends State<MyBookShelf> {
         onPressed: () {
           authController.logout();
           showDialog(
-            context: context, 
-            builder: (context) => StatefulBuilder(
-              builder: ((context, setState) => 
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)), 
-                ),
-                contentPadding: EdgeInsets.only(top: 0),
-                content: Text('로그아웃되었습니다.'),
-              ))));
+              context: context,
+              builder: (context) => StatefulBuilder(
+                  builder: ((context, setState) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                        ),
+                        contentPadding: EdgeInsets.only(top: 0),
+                        content: Text('로그아웃되었습니다.'),
+                      ))));
         },
       ),
     );
   }
 
   Widget dialogMs() {
-  return AlertDialog(
-    content: Text('로그인이 필요한 서비스입니다. \n 로그인 하시겠습니까?'),
-    actions: <Widget>[
-      // TextButton(
-        // onPressed: () {
-        //   Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => LoginPage(),
-        //     settings: RouteSettings(arguments: {'name': "MyBookShelf -> Login"})));
-        // },
-        // child: Text('로그인')),
-      TextButton(
-        onPressed: () {
-          app.controller.pageIndex.value = 0;
-          // Navigator.push(context, 
-          //   MaterialPageRoute(builder: (context) => CodeScan()));
-        }, 
-        child: Text('닫기')),
+    return AlertDialog(
+      content: Text('로그인이 필요한 서비스입니다. \n 로그인 하시겠습니까?'),
+      actions: <Widget>[
+        TextButton(
+            onPressed: () {
+              app.controller.pageIndex.value = 0;
+            },
+            child: Text('닫기')),
       ],
     );
   }
@@ -232,10 +218,12 @@ class _MyBookShelfState extends State<MyBookShelf> {
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       setState(() {
-        books = data.map((item) => Book(
-          coverImageUrl: item['coverImageUrl'],
-          title: item['title'],
-        )).toList();
+        books = data
+            .map((item) => Book(
+                  coverImageUrl: item['coverImageUrl'],
+                  title: item['title'],
+                ))
+            .toList();
       });
     } else {
       throw Exception('책을 불러오는 데 실패했습니다');
@@ -244,6 +232,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
 
   Widget myBookShelfMain(BuildContext context) {
     return Scaffold(
+      // ignore: unnecessary_null_comparison
       body: books == null
           ? Center(child: CircularProgressIndicator())
           : GridView.builder(
@@ -290,8 +279,8 @@ class _MyBookShelfState extends State<MyBookShelf> {
     return Scaffold(
       appBar: MainAppBar(),
       body: Obx(() {
-        if(authController.isLoggedIn.value) {
-          print('isLoggedIn = ture');
+        if (authController.isLoggedIn.value) {
+          print('isLoggedIn = true');
           return Column(
             children: [
               // Container(
@@ -303,12 +292,12 @@ class _MyBookShelfState extends State<MyBookShelf> {
           );
         } else {
           print('isLoggedIn = false');
-          return Stack(
-            children: [
-              //loginbtn(),
-              dialogMs(),]);
-         }
+          return Stack(children: [
+            //loginbtn(),
+            dialogMs(),
+          ]);
+        }
       }),
-    );    
+    );
   }
 }

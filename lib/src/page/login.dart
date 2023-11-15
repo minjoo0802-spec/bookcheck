@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
@@ -7,7 +6,6 @@ import 'package:bookscan_1/src/page/book_info.dart';
 import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import '../connect/server.dart';
 
 class LoginPage extends StatelessWidget {
@@ -19,12 +17,9 @@ class LoginPage extends StatelessWidget {
 
   App app = App();
 
-
   final ServerConnect _server = ServerConnect();
   final String? id;
   final String? qrCode;
-
-  final String _url = "http://10.101.97.210:3000"; // 현서꺼
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +27,8 @@ class LoginPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     //final currentRoute = ModalRoute.of(context);
 
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
 
     Widget _authButton(Size size) {
       final AuthController authController = Get.find();
@@ -49,18 +44,22 @@ class LoginPage extends StatelessWidget {
           onPressed: (() async {
             // ignore: unrelated_type_equality_checks
             if (_loginFormKey.currentState!.validate() != 0) {
-              final response = await sendLoginData(_idController.text, _pwController.text);
-              if(response.body.toString() == "로그인에 성공하였습니다.") {
+              final response = await _server.sendLoginData(
+                  _idController.text, _pwController.text);
+              if (response.body.toString() == "로그인에 성공하였습니다.") {
                 print('로그인 성공');
                 //final previousRoute = currentRoute?.settings;
-                if(arguments?['name'] == "BookInfo -> Login") {
+                if (arguments?['name'] == "BookInfo -> Login") {
                   //print("id"+ _idController.text);
                   // ignore: use_build_context_synchronously
                   Navigator.push(
-                    context,                   
-                    MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: qrCode),));
-                    // settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
-                  
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            BookInfo(id: _idController.text, qrCode: qrCode),
+                      ));
+                  // settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
+
                   _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
                   // Navigator.pop(context);
@@ -68,29 +67,6 @@ class LoginPage extends StatelessWidget {
                   authController.login();
                   app.controller.pageIndex.value = 3;
                 }
-                // else if (arguments?['name'] == "MyBookShelf -> Login") {
-                //   // print("id"+ _idController.text);
-                //   // ignore: use_build_context_synchronously
-                //   authController.login();
-                //   // ignore: use_build_context_synchronously
-                //   // ignore: use_build_context_synchronously
-                //   Navigator.push(context,                   //BookInfo(id: _idController.text, qrCode: arguments?['qrCode'])
-                //     MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: arguments?['qrCode']),
-                //     ));
-                //   Navigator.pop(context);
-                //   print(_idController.text);
-                  
-                //   // // ignore: use_build_context_synchronously
-                //   // Navigator.push(context,                   
-                //   //   MaterialPageRoute(builder: (context) => CodeScan(),
-                //   //   settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
-                //   // Navigator.pop(context);
-                //   //print('id : ${_idController.text}');
-                //   Navigator.pop(context);
-
-                
-                //}
-
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {
                 print('로그인 실패');
               } else {
@@ -150,38 +126,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-
-
-  Future<http.Response> sendLoginData(String? id, String? pw) async {
-    try {
-      final Map<String, dynamic> requestData = {
-        'id': id,
-        'pw': pw,
-      };
-      final response = await http.post(
-        Uri.parse("$_url/login"),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
-      );
-
-      if (response.statusCode == 200) {
-        print('Data sent successfully.');
-        print('Response data: ${response.body}');
-        //_loginResponse = response.body;
-      } else {
-        print('Failed to send data. Status code: ${response.statusCode}');
-        //_loginResponse = "로그인에 실패하였습니다.";
-      }
-      return response;
-    } catch (e) {
-      print('Error sending data: $e');
-      return http.Response('Error: $e', 500);
-      //_loginResponse = "오류 발생: $e";
-    }
-  }
-
   Widget _inputForm(Size size) {
     return Padding(
       padding: EdgeInsets.all(size.width * 0.05),
@@ -233,18 +177,6 @@ class LoginPage extends StatelessWidget {
                       )),
                 ],
               )),
-        ),
-      ),
-    );
-  }
-
-  Widget get _logoImage {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 100, left: 70, right: 70),
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: Text(""),
         ),
       ),
     );
