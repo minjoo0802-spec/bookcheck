@@ -17,7 +17,7 @@ class BookInfo extends StatefulWidget {
   const BookInfo({this.id, this.qrCode});
 
   @override
-  _BookInfo createState() => _BookInfo(id, qrCode);
+  _BookInfo createState() => _BookInfo(id: id, qrCode: qrCode);
 }
 
 class _BookInfo extends State<BookInfo> {
@@ -30,7 +30,9 @@ class _BookInfo extends State<BookInfo> {
 
   App app = App();
 
-  _BookInfo(this.id, this.qrCode);
+  _BookInfo({required this.id, required this.qrCode});
+
+  
 
   Future<BookInfoItem> fetchBookInfo() async {
     final response =
@@ -182,20 +184,19 @@ class _BookInfo extends State<BookInfo> {
   }
 
   Widget _addBook(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     return FloatingActionButton.small(
       child: const Text("+"),
       onPressed: () {
         if(authController.isLoggedIn.value == true) {
-          // print(id);
-          // print(qrCode);
-          //_server.sendUserData(arguments?['id'], arguments?['qrCode']);
-          _server.sendUserData(id, qrCode);
+          print(qrCode);
+          _server.sendUserData(arguments?['id'], qrCode);
           app.controller.pageIndex.value = 3;
         } else {
           Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage(),
             settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
-            
+          print('qrcode : $qrCode');
         }
       }
     );
@@ -203,7 +204,7 @@ class _BookInfo extends State<BookInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    // final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     return Scaffold(
       appBar: PageAppBar(),
       body: Padding(

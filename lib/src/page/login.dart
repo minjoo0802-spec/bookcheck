@@ -59,13 +59,12 @@ class LoginPage extends StatelessWidget {
                 //final previousRoute = currentRoute?.settings;
                 if(arguments?['name'] == "BookInfo -> Login") {
                   // ignore: use_build_context_synchronously
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,                   //BookInfo(id: _idController.text, qrCode: arguments?['qrCode'])
                     MaterialPageRoute(builder: (context) => BookInfo(id: _idController.text, qrCode: arguments?['qrCode']),
                     settings:  RouteSettings(arguments: {'id': _idController.text, 'qrCode': arguments?['qrCode']})));
-                  print(arguments?['id']); // null
-                  print(arguments?['qrCode']); // 제대로
                   _server.sendUserData(_idController.text, arguments?['qrCode']);
                   // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
                   Navigator.pop(context);
                   authController.login();
                   app.controller.pageIndex.value = 3;
