@@ -1,5 +1,6 @@
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:get/get.dart';
+import '../controller/bookshelf_controller.dart';
 import '../controller/bottom_nav_controller.dart';
 
 class InitBinding extends Bindings {
@@ -7,5 +8,6 @@ class InitBinding extends Bindings {
   void dependencies() {
     Get.put(BottomNavController(), permanent: true);
     Get.put(AuthController());
+    Get.put(BookShelfController());
   }
 }

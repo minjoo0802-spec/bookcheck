@@ -7,6 +7,7 @@ import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../connect/server.dart';
+import '../controller/bookshelf_controller.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key, this.id, this.qrCode});
@@ -15,12 +16,15 @@ class LoginPage extends StatelessWidget {
   final GlobalKey _stackKey = GlobalKey();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+  
 
   App app = App();
 
   final ServerConnect _server = ServerConnect();
   final String? id;
   final String? qrCode;
+
+  final BookShelfController bookShelfController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +60,7 @@ class LoginPage extends StatelessWidget {
                         builder: (context) =>
                             BookInfo(id: _idController.text, qrCode: qrCode),
                       ));
-
+                  bookShelfController.fetchBooks();
                   _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
                   authController.login();
