@@ -112,15 +112,16 @@ class MyBookShelf extends StatelessWidget {
   }
 
   Widget _buildBookItem(Book book) {
-
+    print('book_cover : ${book.book_cover}');
+    print('book_title : ${book.book_title}');
     return Card(
       elevation: 5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            //book.book_cover,
-            "https://image.aladin.co.kr/product/28642/70/cover/k152835653_1.jpg",
+            book.book_cover,
+            // "https://image.aladin.co.kr/product/28642/70/cover/k152835653_1.jpg",
             height: 170,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -128,8 +129,8 @@ class MyBookShelf extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              // book.book_title,
-              "11",
+              book.book_title,
+              //"11",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
@@ -138,6 +139,7 @@ class MyBookShelf extends StatelessWidget {
     );
     
   }
+  
   
 }
 
