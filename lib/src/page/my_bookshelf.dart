@@ -125,9 +125,9 @@ class MyBookShelf extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () async {
-                          final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "");
+                          final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "11");
                                 
-                          if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
+                          if(response.body.toString() == "독후감이 등록되었습니다!") {
                               Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => BookReviewPage()));
                           } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
