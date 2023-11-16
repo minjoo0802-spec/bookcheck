@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:bookscan_1/src/model/book_info_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../controller/book_review_controller.dart';
+
 class ServerConnect {
   final Uri _url = Uri.parse("http://10.101.97.210:3000");
 
@@ -68,6 +70,36 @@ class ServerConnect {
     }
   }
 
+  Future<http.Response> sendUserIDIsbnReport(String? id, String? isbn, String? report) async {
+    try {
+      final Map<String, dynamic> requestData = {
+        'id': id,
+        'isbn': isbn,
+        'report' : report
+      };
+      final response = await http.post(
+        Uri.parse("$_url/report"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        print('Data sent successfully.');
+        print('Response data: ${response.body}');
+      } else {
+        print('Failed to send data. Status code: ${response.statusCode}');
+      }
+
+      return response;
+      
+    } catch (e) {
+      print('Error sending data: $e');
+      throw e;
+    }
+  }
+
   // 로그인
   Future<http.Response> sendLoginData(String? id, String? pw) async {
     try {
@@ -128,4 +160,6 @@ class ServerConnect {
       return http.Response('Error : $e', 500);
     }
   }
+  
+
 }

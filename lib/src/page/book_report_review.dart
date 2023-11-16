@@ -1,3 +1,4 @@
+import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class BookReportReviewPage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _BookReportReviewPageState extends State<BookReportReviewPage> {
       height: 500,
       width: 300,
       child: Scaffold(
+        appBar: PageAppBar(),
         backgroundColor: Color.fromRGBO(255, 220, 210, 1),
         body: Center(
           child: Column(

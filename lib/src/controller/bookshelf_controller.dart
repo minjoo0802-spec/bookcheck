@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../model/book_shelf_model.dart';
-import 'package:mysql1/mysql1.dart';
 
 class BookShelfController extends GetxController {
   RxList<Book> books = <Book>[].obs;

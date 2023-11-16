@@ -6,8 +6,12 @@ import 'package:bookscan_1/src/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import '../connect/server.dart';
+import '../controller/book_review_controller.dart';
 import '../controller/bookshelf_controller.dart';
 import '../model/book_shelf_model.dart';
+import 'book_report_review.dart';
+import 'book_review.dart';
 
 class MyBookShelf extends StatelessWidget {
   final String? id, qrCode;
@@ -18,7 +22,11 @@ class MyBookShelf extends StatelessWidget {
   final App app = App();
   final BookShelfController bookShelfController = Get.find();
 
+  final ServerConnect _server = ServerConnect();
+
   final RxList<Book> books = <Book>[].obs;
+
+  final BookReviewController bookReviewController = BookReviewController();
 
 
   @override
@@ -96,24 +104,79 @@ class MyBookShelf extends StatelessWidget {
   }
 
   Widget myBookShelfMain(BuildContext context) {
+
     return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
-        ),
-        itemCount: books.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildBookItem(books[index]);
-        },
-      ),
-    );
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await bookShelfController.fetchBooks();
+            },
+            child: Obx(() {
+              if (bookShelfController.books.isNotEmpty) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                  ),
+                  itemCount: bookShelfController.books.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () async {
+                        
+                        //_server.sendUserIDIsbnReport("34", "11", "");
+                        final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "");
+                        //print(response.body.toString());
+                        // //bookReviewController.hasReview.value = false; //초기화
+                        //print('qrCode : $qrCode');
+                        if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
+                            Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => BookReviewPage()));
+                        } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => BookReportReviewPage()));
+                        }
+                      },
+                      child: _buildBookItem(bookShelfController.books[index]),
+                    );
+                  },
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            }),
+          ),
+        );
+      }
   }
 
+  // Future<void> checkReviewExistence(String response) async {
+  //   if (response == "입력된 독후감이 있습니다.") {
+  //     // 독후감이 이미 등록되어 있음
+  //     print("이미 독후감이 등록되어 있습니다.");
+  //     // 여기에 독후감 조회 페이지로 이동하는 코드 추가
+  //     navigateToReviewPage();
+  //   } else {
+  //     // 독후감이 없음
+  //     print("독후감이 없습니다. 독후감 작성 페이지로 이동합니다.");
+  //     // 여기에 독후감 작성 페이지로 이동하는 코드 추가
+  //     navigateToWriteReviewPage();
+  //   }
+  // }
+  
+  void navigateToWriteReviewPage(BuildContext context) {
+    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BookReportReviewPage()));
+  }
+  
+  void navigateToReviewPage(BuildContext context) {
+    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BookReviewPage()));
+  }
+
+
   Widget _buildBookItem(Book book) {
-    print('book_cover : ${book.book_cover}');
-    print('book_title : ${book.book_title}');
+    //  print('book_cover : ${book.book_cover}');
+    //  print('book_title : ${book.book_title}');
     return Card(
       elevation: 5,
       child: Column(
@@ -121,8 +184,7 @@ class MyBookShelf extends StatelessWidget {
         children: [
           Image.network(
             book.book_cover,
-            // "https://image.aladin.co.kr/product/28642/70/cover/k152835653_1.jpg",
-            height: 170,
+            height: 180,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
@@ -130,16 +192,12 @@ class MyBookShelf extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               book.book_title,
-              //"11",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
     );
-    
   }
-  
-  
-}
+
 
