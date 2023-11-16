@@ -29,17 +29,17 @@ class MyBookShelf extends StatelessWidget {
         if (authController.isLoggedIn.value) {
           print('isLoggedIn = true');
           if (bookShelfController.books.isNotEmpty) {
-            print('1');
+            print('받은 데이터 띄우기');
             return Column(
               children: [
                 logOutBtn(),
-                Expanded(child: myBookShelfMain(context)),
+                myBookShelfMain(context),
               ],
             );
           } 
           else {
             //데이터가 로딩 중인 경우
-            print('2');
+            print('로딩 중...');
             bookShelfController.fetchBooks();
             return Center(child: CircularProgressIndicator());
             
@@ -96,27 +96,31 @@ class MyBookShelf extends StatelessWidget {
   }
 
   Widget myBookShelfMain(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
+    return Expanded(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 15,
+          mainAxisSpacing: 15,
+        ),
+        itemCount: books.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _buildBookItem(books[index]);
+        },
       ),
-      itemCount: books.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _buildBookItem(books[index]);
-      },
     );
   }
 
   Widget _buildBookItem(Book book) {
+
     return Card(
       elevation: 5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            book.book_cover,
+            //book.book_cover,
+            "https://image.aladin.co.kr/product/28642/70/cover/k152835653_1.jpg",
             height: 170,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -124,44 +128,16 @@ class MyBookShelf extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              book.book_title,
+              // book.book_title,
+              "11",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
     );
+    
   }
-
-  // Future<void> fetchBooks() async {
-  //   try {
-  //     final response = await http.get(Uri.parse("http://10.101.97.210:3000/shelfbooks"));
-  //     if (response.statusCode == 200) {
-  //       final List<dynamic> data = json.decode(response.body);
-
-  //       // 가공된 도서 목록을 저장할 리스트
-  //       List<Book> processedBooks = [];
-
-  //       // 데이터를 가공
-  //       for (var item in data) {
-  //         if (item is Map<String, dynamic>) {
-  //           // 필요한 정보 추출
-  //           String bookTitle = item['book_title'] ?? '';
-  //           String bookCover = item['book_cover'] ?? '';
-
-  //           // Book 객체로 변환 후 리스트에 추가
-  //           processedBooks.add(Book(book_cover: bookCover, book_title: bookTitle));
-  //         }
-  //       }
-  //       // 가공된 도서 목록을 Observable 리스트에 할당
-  //       books.assignAll(processedBooks);
-  //       print('책정보받음');
-  //     } else {
-  //       throw Exception('서버 응답이 200이 아닙니다. 상태 코드: ${response.statusCode}');
-  //     }
-  //   } catch (error) {
-  //     print('데이터 가져오기 실패: $error');
-  //   }
-  // }
+  
 }
 

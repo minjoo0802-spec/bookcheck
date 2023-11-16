@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
                         builder: (context) =>
                             BookInfo(id: _idController.text, qrCode: qrCode),
                       ));
-                  bookShelfController.fetchBooks();
+                  //bookShelfController.fetchBooks();
                   _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
                   authController.login();

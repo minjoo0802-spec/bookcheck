@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../model/book_shelf_model.dart';
+import 'package:mysql1/mysql1.dart';
 
 class BookShelfController extends GetxController {
   RxList<Book> books = <Book>[].obs;
@@ -25,11 +26,14 @@ class BookShelfController extends GetxController {
 
             // Book 객체로 변환 후 리스트에 추가
             processedBooks.add(Book(book_cover: bookCover, book_title: bookTitle));
-          }
+          } 
         }
         // 가공된 도서 목록을 Observable 리스트에 할당
         books.assignAll(processedBooks);
-        print('책정보받음');
+        print('서버 응답: ${response.body}');
+        print('가공된 도서 목록: $processedBooks');
+        print('책정보받음: ${books.length} 권');
+
       } else {
         throw Exception('서버 응답이 200이 아닙니다. 상태 코드: ${response.statusCode}');
       }
