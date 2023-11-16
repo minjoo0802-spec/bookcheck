@@ -112,33 +112,45 @@ class MyBookShelf extends StatelessWidget {
             },
             child: Obx(() {
               if (bookShelfController.books.isNotEmpty) {
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                  ),
-                  itemCount: bookShelfController.books.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () async {
-                        
-                        //_server.sendUserIDIsbnReport("34", "11", "");
-                        final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "");
-                        //print(response.body.toString());
-                        // //bookReviewController.hasReview.value = false; //초기화
-                        //print('qrCode : $qrCode');
-                        if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
+                return Padding(
+                  padding: EdgeInsets.all(10),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: 0.65,
+                    ),
+                    itemCount: bookShelfController.books.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () async {
+                          final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "");
+                                
+                          if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => BookReviewPage()));
+                          } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
                             Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => BookReviewPage()));
-                        } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => BookReportReviewPage()));
-                        }
-                      },
-                      child: _buildBookItem(bookShelfController.books[index]),
-                    );
-                  },
+                                MaterialPageRoute(builder: (context) => BookReportReviewPage()));
+                          }
+                        },
+                        child: Container(
+                          decoration : BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 0,
+                                blurRadius: 0,
+                                offset: Offset(0, 3),
+                              )
+                            ]),
+                          child: _buildBookItem(bookShelfController.books[index])),
+                      );
+                    },
+                  ),
                 );
               } else {
                 return Center(child: CircularProgressIndicator());
@@ -149,55 +161,42 @@ class MyBookShelf extends StatelessWidget {
       }
   }
 
-  // Future<void> checkReviewExistence(String response) async {
-  //   if (response == "입력된 독후감이 있습니다.") {
-  //     // 독후감이 이미 등록되어 있음
-  //     print("이미 독후감이 등록되어 있습니다.");
-  //     // 여기에 독후감 조회 페이지로 이동하는 코드 추가
-  //     navigateToReviewPage();
-  //   } else {
-  //     // 독후감이 없음
-  //     print("독후감이 없습니다. 독후감 작성 페이지로 이동합니다.");
-  //     // 여기에 독후감 작성 페이지로 이동하는 코드 추가
-  //     navigateToWriteReviewPage();
-  //   }
-  // }
-  
-  void navigateToWriteReviewPage(BuildContext context) {
-    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookReportReviewPage()));
-  }
-  
-  void navigateToReviewPage(BuildContext context) {
-    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookReviewPage()));
-  }
 
+Widget _buildBookItem(Book book) {
+  int maxTitleLength = 8;
 
-  Widget _buildBookItem(Book book) {
-    //  print('book_cover : ${book.book_cover}');
-    //  print('book_title : ${book.book_title}');
-    return Card(
-      elevation: 5,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network(
+  String truncatedTitle = book.book_title.length > maxTitleLength
+      ? '${book.book_title.substring(0, maxTitleLength)}...'
+      : book.book_title;
+
+  return Card(
+    elevation: 0,
+    child: ListView(
+      scrollDirection: Axis.vertical,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10)),
+          child: Image.network(
             book.book_cover,
-            height: 180,
+            height: 150,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              book.book_title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            truncatedTitle,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis, //초과시 ...으로 표시
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
 
