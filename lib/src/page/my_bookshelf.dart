@@ -19,10 +19,10 @@ class MyBookShelf extends StatefulWidget {
 class _MyBookShelfState extends State<MyBookShelf> {
   late String? id;
   late String? qrCode;
-  //final AuthController authController = Get.put(AuthController());
+
   final AuthController authController = Get.find();
 
-  late List<Book> books;
+  late List<Book>? books;
 
   App app = App();
 
@@ -206,6 +206,7 @@ class _MyBookShelfState extends State<MyBookShelf> {
   //     ),
   //   );
   // }
+  
   @override
   void initState() {
     super.initState();
@@ -214,21 +215,41 @@ class _MyBookShelfState extends State<MyBookShelf> {
   }
 
   Future<void> fetchBooks() async {
-    final response = await http.get(Uri.parse("YOUR_SERVER_API_ENDPOINT"));
+  try {
+    final response = await http.get(Uri.parse("http://10.101.97.210:3000/shelfbooks"));
     if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      setState(() {
-        books = data
-            .map((item) => Book(
-                  coverImageUrl: item['coverImageUrl'],
-                  title: item['title'],
-                ))
-            .toList();
-      });
+      final dynamic data = json.decode(response.body);
+      if (data is List) {
+        setState(() {
+          books = data
+              .map((item) => Book(
+                    book_cover: item['book_cover'] ?? '',
+                    book_title: item['book_title'] ?? '',
+                  ))
+              .toList();
+          print('책정보받음');
+        });
+      } else if (data is Map) {
+        // 서버에서 Map 형식으로 반환된 경우
+        setState(() {
+          books = [
+            Book(
+              book_cover: data['book_cover'] ?? '',
+              book_title: data['book_title'] ?? '',
+            )
+          ];
+          print('책정보받음');
+        });
+      } else {
+        throw Exception('서버 응답 데이터 형식이 예상과 다릅니다. List 또는 Map이 예상되었지만, 다음과 같은 형식이었습니다: $data');
+      }
     } else {
-      throw Exception('책을 불러오는 데 실패했습니다');
+      throw Exception('서버 응답이 200이 아닙니다. 상태 코드: ${response.statusCode}');
     }
+  } catch (error) {
+    print('데이터 가져오기 실패: $error');
   }
+}
 
   Widget myBookShelfMain(BuildContext context) {
     return Scaffold(
@@ -241,34 +262,36 @@ class _MyBookShelfState extends State<MyBookShelf> {
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
               ),
-              itemCount: books.length,
+              itemCount: books?.length,
               itemBuilder: (BuildContext context, int index) {
-                return _buildBookItem(books[index]);
+                return _buildBookItem(books![index]);
               },
             ),
     );
   }
 
   Widget _buildBookItem(Book book) {
-    return Card(
-      elevation: 5,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network(
-            book.coverImageUrl,
-            height: 150,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              book.title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return Expanded(
+      child: Card(
+        elevation: 5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(
+              book.book_cover,
+              height: 170,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                book.book_title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -281,21 +304,24 @@ class _MyBookShelfState extends State<MyBookShelf> {
       body: Obx(() {
         if (authController.isLoggedIn.value) {
           print('isLoggedIn = true');
-          return Column(
-            children: [
-              // Container(
-              //   child: Text(id),
-              // ),
-              logOutBtn(),
-              myBookShelfMain(context),
-            ],
-          );
+          if (books != null) {
+            return Column(
+              children: [
+                logOutBtn(),
+                Expanded(child: myBookShelfMain(context)),
+              ],
+            );
+          } else {
+            // 데이터가 로딩 중인 경우
+            return Center(child: CircularProgressIndicator());
+          }
         } else {
           print('isLoggedIn = false');
-          return Stack(children: [
-            //loginbtn(),
-            dialogMs(),
-          ]);
+          return Stack(
+            children: [
+              dialogMs(),
+            ],
+          );
         }
       }),
     );

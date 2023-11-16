@@ -1,6 +1,6 @@
 class Book {
-  final String coverImageUrl;
-  final String title;
+  final String book_cover;
+  final String book_title;
 
-  Book({required this.coverImageUrl, required this.title});
+  Book({required this.book_cover, required this.book_title});
 }

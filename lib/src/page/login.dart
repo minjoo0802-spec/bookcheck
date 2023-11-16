@@ -12,6 +12,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key, this.id, this.qrCode});
 
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  final GlobalKey _stackKey = GlobalKey();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
@@ -91,7 +92,7 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               //_logoImage,
               Stack(
-                key: _loginFormKey,
+                key: _stackKey,
                 children: <Widget>[
                   _inputForm(size),
                   _authButton(size),
@@ -130,7 +131,7 @@ class LoginPage extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 32),
           child: Form(
-              // _loginFormKey를 통해 변한 상태를 가져올 수 있음
+              
               key: _loginFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
