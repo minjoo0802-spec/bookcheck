@@ -1,6 +1,8 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:flutter/material.dart';
 
+import 'book_report_write.dart' as book;
+
 class BookReportReviewPage extends StatefulWidget {
   const BookReportReviewPage({super.key});
 
@@ -9,13 +11,13 @@ class BookReportReviewPage extends StatefulWidget {
 }
 
 class _BookReportReviewPageState extends State<BookReportReviewPage> {
-  Color backgroundColor = Color.fromRGBO(255, 220, 210, 1);
+  Color backgroundColor = Color(0xFFFFDCD2);
 
-  void changeBackgroundColor(Color color) {
-    setState(() {
-      backgroundColor = color;
-    });
-  }
+  // void changeBackgroundColor(Color color) {
+  //   setState(() {
+  //     backgroundColor = color;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class _BookReportReviewPageState extends State<BookReportReviewPage> {
       width: 300,
       child: Scaffold(
         appBar: PageAppBar(),
-        backgroundColor: Color.fromRGBO(255, 220, 210, 1),
+        backgroundColor: book.backgroundColor,
         body: Center(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

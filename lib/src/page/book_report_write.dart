@@ -2,17 +2,19 @@ import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-class BookReviewPage extends StatefulWidget {
+
+Color backgroundColor = Color.fromRGBO(255, 220, 210, 1);
+
+class BookReportWritePage extends StatefulWidget {
   @override
-  _BookReviewPageState createState() => _BookReviewPageState();
+  _BookReportWritePageState createState() => _BookReportWritePageState();
 }
 
-class _BookReviewPageState extends State<BookReviewPage> {
+class _BookReportWritePageState extends State<BookReportWritePage> {
   double _rating = 0.0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
-  Color backgroundColor = Color.fromRGBO(255, 220, 210, 1);
 
   void changeBackgroundColor(Color color) {
     setState(() {

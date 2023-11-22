@@ -11,7 +11,7 @@ import '../controller/book_review_controller.dart';
 import '../controller/bookshelf_controller.dart';
 import '../model/book_shelf_model.dart';
 import 'book_report_review.dart';
-import 'book_review.dart';
+import 'book_report_write.dart';
 
 class MyBookShelf extends StatelessWidget {
   final String? id, qrCode;
@@ -129,7 +129,7 @@ class MyBookShelf extends StatelessWidget {
                                 
                           if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
                               Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => BookReviewPage()));
+                                MaterialPageRoute(builder: (context) => BookReportWritePage()));
                           } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => BookReportReviewPage()));

@@ -59,46 +59,48 @@ class SignUpPage extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      appBar: PageAppBar(),
-      body: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          CustomPaint(
-            size: size,
-            painter: LoginBackground(),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              //_logoImage,
-              Stack(
-                key: _signUpFormKey,
-                children: <Widget>[
-                  _inputForm(size),
-                  _authButton(size),
-                ],
-              ),
-              Container(
-                height: size.height * 0.1,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-                child: const Text(
-                  "로그인 화면으로 돌아가기",
-                  style: TextStyle(color: Colors.grey),
+    return Expanded(
+      child: Scaffold(
+        appBar: PageAppBar(),
+        body: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            CustomPaint(
+              size: size,
+              painter: LoginBackground(),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                //_logoImage,
+                Stack(
+                  key: _signUpFormKey,
+                  children: <Widget>[
+                    _inputForm(size),
+                    _authButton(size),
+                  ],
                 ),
-              ),
-              Container(
-                height: size.height * 0.05,
-              ),
-            ],
-          )
-        ],
+                Container(
+                  height: size.height * 0.1,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: const Text(
+                    "로그인 화면으로 돌아가기",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+                Container(
+                  height: size.height * 0.05,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

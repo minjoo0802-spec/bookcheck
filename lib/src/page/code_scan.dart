@@ -1,5 +1,7 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
+import 'package:bookscan_1/src/page/book_report_review.dart';
+import 'package:bookscan_1/src/page/book_report_write.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 
@@ -43,6 +45,24 @@ class _CodeScanState extends State<CodeScan> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Widget btn1() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => BookReportWritePage()));
+      }, 
+      child: Text("독후감 작성 페이지"));
+  }
+
+  Widget btn2() {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => BookReportReviewPage()));
+      }, 
+      child: Text("독후감 작성 페이지"));
   }
 
   Widget Search() {
@@ -134,9 +154,6 @@ class _CodeScanState extends State<CodeScan> {
             height: 20,
           ),
           if (_qrInfo != null)
-            // Center(child: Text('Scanned QR/Bar code : $_qrInfo',
-            // style: TextStyle(fontSize: 20),),),
-            // SizedBox(height: 20,),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -146,6 +163,8 @@ class _CodeScanState extends State<CodeScan> {
               },
               child: Text('Scan Again'),
             ),
+            btn1(),
+            btn2(),
         ]),
       ),
     );
