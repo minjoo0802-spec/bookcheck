@@ -3,6 +3,7 @@ import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/helper/login_background.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
+import 'package:bookscan_1/src/page/my_bookshelf.dart' as mybookshelf;
 import 'package:bookscan_1/src/page/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class LoginPage extends StatelessWidget {
   final GlobalKey _stackKey = GlobalKey();
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+  final BookShelfController bookShelfController = Get.find();
   
 
   App app = App();
@@ -24,7 +26,7 @@ class LoginPage extends StatelessWidget {
   final String? id;
   final String? qrCode;
 
-  final BookShelfController bookShelfController = Get.find();
+  //final BookShelfController bookShelfController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +62,15 @@ class LoginPage extends StatelessWidget {
                         builder: (context) =>
                             BookInfo(id: _idController.text, qrCode: qrCode),
                       ));
+                  mybookshelf.id = _idController.text;
+                  mybookshelf.qrCode = qrCode;
                   //bookShelfController.fetchBooks();
                   _server.sendUserData(_idController.text, qrCode);
                   // ignore: use_build_context_synchronously
                   authController.login();
+                  print('11');
+                  bookShelfController.fetchBooks(_idController.text);
+                  print('22');
                   app.controller.pageIndex.value = 3;
                 }
               } else if (response.body.toString() == "로그인 정보가 일치하지 않습니다.") {

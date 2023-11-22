@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../model/list_item_model.dart';
+
 class TimeLinePage extends StatelessWidget {
   //final ListItemController controller = Get.put(ListItemController());
   TimeLinePage({super.key}) {
@@ -11,12 +13,15 @@ class TimeLinePage extends StatelessWidget {
     // controller.onInit();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
        body: Column(
         children: [
+         
           Container(
             padding: EdgeInsets.all(10),
             child: CarouselSlider(
@@ -42,12 +47,10 @@ class TimeLinePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 400,
+            height: 490,
             child: ListView(
               children: List.generate(5, (index) {
-                // 예제 데이터를 생성
-                String title = '책 제목 $index';
-                String author = '작가 $index';
+                ListItem list = listItem[index];
 
                 return SizedBox(
                   height: 100,
@@ -56,7 +59,7 @@ class TimeLinePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(4),
                         child: Image.network(
-                            'https://image.aladin.co.kr/product/32896/32/cover500/k402936527_1.jpg'),
+                            list.img),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
@@ -67,21 +70,21 @@ class TimeLinePage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 5),
                               child: Text(
-                                title,
+                                list.title,
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 5),
-                              child: Text(author),
+                              child: Text(list.userName),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Row(
                                 children: [
-                                  Text('좋아요 수 5'),
+                                  Text('좋아요 수 ${list.like}'),
                                   SizedBox(width: 100),
-                                  Text('댓글 수 2'),
+                                  Text('댓글 수 ${list.reple}'),
                                 ],
                               ),
                             ),

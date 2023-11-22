@@ -199,13 +199,9 @@ class _BookInfo extends State<BookInfo> {
         child: const Text("+"),
         onPressed: () {
           if (authController.isLoggedIn.value == true) {
-            // Navigator.push(
-            //   context, MaterialPageRoute(builder: (context) => LoginPage(id: id, qrCode: qrCode,),
-            //   settings: RouteSettings(arguments: {'name': "BookInfo -> Login"})));
-            // Navigator.pop(context);
             _server.sendUserData(id, qrCode);
-            // print('id : ${arguments?['id']}');
             print('id : $id');
+            print('qrCode : $qrCode');
             app.controller.pageIndex.value = 3;
           } else {
             Navigator.push(
@@ -219,7 +215,6 @@ class _BookInfo extends State<BookInfo> {
                         RouteSettings(arguments: {'name': "BookInfo -> Login"})
                     // settings: RouteSettings(arguments: {'name': "BookInfo -> Login", 'qrCode': qrCode})));
                     ));
-            //print('qrcode : $qrCode');
           }
         });
   }

@@ -13,10 +13,11 @@ import '../model/book_shelf_model.dart';
 import 'book_report_review.dart';
 import 'book_report_write.dart';
 
-class MyBookShelf extends StatelessWidget {
-  final String? id, qrCode;
+late String? id, qrCode;
 
-  MyBookShelf({Key? key, this.id, this.qrCode}) : super(key: key);
+class MyBookShelf extends StatelessWidget {
+  
+  MyBookShelf({Key? key}) : super(key: key);
 
   final AuthController authController = Get.find();
   final App app = App();
@@ -48,7 +49,7 @@ class MyBookShelf extends StatelessWidget {
           else {
             //데이터가 로딩 중인 경우
             print('로딩 중...');
-            bookShelfController.fetchBooks();
+            bookShelfController.fetchBooks(id);
             return Center(child: CircularProgressIndicator());
             
           }
@@ -104,11 +105,10 @@ class MyBookShelf extends StatelessWidget {
   }
 
   Widget myBookShelfMain(BuildContext context) {
-
     return Expanded(
           child: RefreshIndicator(
             onRefresh: () async {
-              await bookShelfController.fetchBooks();
+              await bookShelfController.fetchBooks(id);
             },
             child: Obx(() {
               if (bookShelfController.books.isNotEmpty) {
@@ -125,7 +125,9 @@ class MyBookShelf extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () async {
-                          final response = await _server.sendUserIDIsbnReport("34", "9791156645719", "11");
+                          print('id : $id');
+                          print('qrCode : $qrCode');
+                          final response = await _server.sendUserIDIsbnReport(id, qrCode, "");
                                 
                           if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
                               Navigator.push(context,

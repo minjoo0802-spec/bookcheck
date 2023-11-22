@@ -7,9 +7,22 @@ import '../model/book_shelf_model.dart';
 class BookShelfController extends GetxController {
   RxList<Book> books = <Book>[].obs;
 
-  Future<void> fetchBooks() async {
+  Future<void> fetchBooks(String? id) async {
+    final Uri url = Uri.parse("http://10.101.127.93:3000");
+    
     try {
-      final response = await http.get(Uri.parse("http://10.101.97.210:3000/shelfbooks"));
+      final Map<String, dynamic> requestData = {
+        'id': id,
+      };
+
+      final response = await http.post(
+        Uri.parse("$url/shelfbooks"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
 

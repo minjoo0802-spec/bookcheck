@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../components/message_popup.dart';
 
 enum PageName { HOME, TIMELINE, SHOP, MYBOOKS }
