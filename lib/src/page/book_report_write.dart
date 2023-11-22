@@ -54,6 +54,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                         child: Text('책 제목'),
                       ),
                       TextFormField(
+                        enabled: false,
                         controller: _titleController,
                         decoration: InputDecoration(
                           hintText: '책 제목을 입력하세요',
@@ -87,10 +88,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
               onPressed: () {
-                // 작성한 독후감을 저장하거나 처리하는 로직을 추가
-                // _titleController.text: 제목
-                // _rating: 평점
-                // _contentController.text: 독후감 내용
+                
               },
               child: Text('작성 완료',),
             ),
