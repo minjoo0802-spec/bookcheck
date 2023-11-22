@@ -69,7 +69,7 @@ class LoginPage extends StatelessWidget {
                   // ignore: use_build_context_synchronously
                   authController.login();
                   print('11');
-                  bookShelfController.fetchBooks(_idController.text, qrCode);
+                  bookShelfController.fetchBooks(_idController.text);
                   print('22');
                   app.controller.pageIndex.value = 3;
                 }

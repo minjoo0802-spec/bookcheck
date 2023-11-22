@@ -1,11 +1,11 @@
 class Book {
   final String book_cover;
   final String book_title;
-  final String qrCode;
+  final String book_report;
 
   Book({
     required this.book_cover, 
     required this.book_title,
-    required this.qrCode
+    required this.book_report,
   });
 }

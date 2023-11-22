@@ -52,7 +52,7 @@ class MyBookShelf extends StatelessWidget {
           else {
             //데이터가 로딩 중인 경우
             print('로딩 중...');
-            bookShelfController.fetchBooks(id, qrCode);
+            bookShelfController.fetchBooks(id);
             return Center(child: CircularProgressIndicator());
             
           }
@@ -111,7 +111,7 @@ class MyBookShelf extends StatelessWidget {
     return Expanded(
           child: RefreshIndicator(
             onRefresh: () async {
-              await bookShelfController.fetchBooks(id, qrCode);
+              await bookShelfController.fetchBooks(id);
             },
             child: Obx(() {
               if (bookShelfController.books.isNotEmpty) {
@@ -126,19 +126,19 @@ class MyBookShelf extends StatelessWidget {
                     ),
                     itemCount: bookShelfController.books.length,
                     itemBuilder: (BuildContext context, int index) {
+                      Book book = bookShelfController.books[index];
                       return GestureDetector(
                         onTap: () async {
                           print('id : $id');
-                          print('qrCode : $qrCode');
-                          final response = await _server.sendUserIDIsbnReport(id, qrCode, "");
-                                
-                          if(response.body.toString() == "독후감을 등록할 수 있습니다!") {
-                              Navigator.push(context,
+
+                          if(book.book_report.toString() == "") {
+                            print(book.book_report);
+                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => BookReportWritePage()));
-                          } else if(response.body.toString() == "해당 도서에 입력된 독후감이 있습니다.") {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => BookReportReviewPage()));
                           }
+
+                          //final response = await _server.sendUserIDIsbnReport(id, qrCode, "");
+
                         },
                         child: Container(
                           decoration : BoxDecoration(

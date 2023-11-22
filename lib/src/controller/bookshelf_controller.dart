@@ -7,13 +7,12 @@ import '../model/book_shelf_model.dart';
 class BookShelfController extends GetxController {
   RxList<Book> books = <Book>[].obs;
 
-  Future<void> fetchBooks(String? id, String? qrCode) async {
+  Future<void> fetchBooks(String? id) async {
     final Uri url = Uri.parse("http://10.101.127.93:3000");
     
     try {
       final Map<String, dynamic> requestData = {
         'id': id,
-        'qrCode' : qrCode,
       };
 
       final response = await http.post(
@@ -36,9 +35,10 @@ class BookShelfController extends GetxController {
             // 필요한 정보 추출
             String bookTitle = item['book_title'] ?? '';
             String bookCover = item['book_cover'] ?? '';
+            String bookReport = item['book_report'] ?? '';
 
             // Book 객체로 변환 후 리스트에 추가
-            processedBooks.add(Book(book_cover: bookCover, book_title: bookTitle, qrCode: qrCode!));
+            processedBooks.add(Book(book_cover: bookCover, book_title: bookTitle, book_report: bookReport));
           } 
         }
         // 가공된 도서 목록을 Observable 리스트에 할당
