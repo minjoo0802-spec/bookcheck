@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TimeLinePage extends StatelessWidget {
-  final ListItemController controller = Get.put(ListItemController());
+  //final ListItemController controller = Get.put(ListItemController());
   TimeLinePage({super.key}) {
-    controller.fetchPosts();
-    controller.onInit();
+    // controller.fetchPosts();
+    // controller.onInit();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
-      body: Column(
+       body: Column(
         children: [
           Container(
             padding: EdgeInsets.all(10),
@@ -24,12 +24,13 @@ class TimeLinePage extends StatelessWidget {
                 Container(
                   height: 200,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/ad_banner_image/banner_1.png'),
-                        fit: BoxFit.cover,
-                      )),
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/ad_banner_image/banner_1.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ],
               options: CarouselOptions(
@@ -42,63 +43,56 @@ class TimeLinePage extends StatelessWidget {
           ),
           SizedBox(
             height: 400,
-            child: Obx(() {
-              if (controller.listItems.isEmpty) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                return RefreshIndicator(
-                  onRefresh: () => controller.fetchPosts(),
-                  child: ListView.builder(
-                    itemCount: controller.listItems.length,
-                    itemBuilder: (context, index) {
-                      final item = controller.listItems[index];
-                      return SizedBox(
-                        height: 100,
-                        child: Row(
+            child: ListView(
+              children: List.generate(5, (index) {
+                // 예제 데이터를 생성
+                String title = '책 제목 $index';
+                String author = '작가 $index';
+
+                return SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Image.network(
+                            'https://image.aladin.co.kr/product/32896/32/cover500/k402936527_1.jpg'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: Image.network(
-                                  'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'),
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                title,
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text(author),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Row(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(
-                                      item.title,
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Text(item.userName),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      children: [
-                                        Text('좋아요 수 ${item.like}'),
-                                        SizedBox(width: 100),
-                                        Text('댓글 수 ${item.reple}'),
-                                      ],
-                                    ),
-                                  ),
+                                  Text('좋아요 수 5'),
+                                  SizedBox(width: 100),
+                                  Text('댓글 수 2'),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 );
-              }
-            }),
+              }),
+            ),
           ),
         ],
       ),

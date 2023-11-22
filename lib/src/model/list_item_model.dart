@@ -1,38 +1,22 @@
-import 'dart:convert';
-
 class ListItem {
+  final String img;
   final String title;
   final String userName;
   final int like;
   final int reple;
 
   ListItem(
-      {required this.title,
+      {required this.img,
+      required this.title,
       required this.userName,
       required this.like,
       required this.reple});
-
-  factory ListItem.fromJson(Map<String, dynamic> json) {
-    return ListItem(
-      title: json['title'],
-      userName: json['userName'],
-      like: json['like'],
-      reple: json['reple'],
-    );
-  }
 }
 
-List<ListItem> postFromJson(String str) {
-  // JSON 데이터를 파싱하여 Post 목록을 반환합니다.
-
-  final jsonData = json.decode(str);
-  if (jsonData is List) {
-    return jsonData.map((item) => ListItem.fromJson(item)).toList();
-  } else if (jsonData is Map) {
-    // 처리할 JSON 데이터가 목록이 아닌 경우, Post 하나를 반환할 수도 있습니다.
-    return [ListItem.fromJson(jsonData as Map<String, dynamic>)];
-  } else {
-    // 처리할 수 없는 형태의 JSON 데이터인 경우 빈 목록 반환
-    return [];
-  }
-}
+final List<ListItem> bookList = [
+    ListItem(img: 'https://image.aladin.co.kr/product/32896/32/cover500/k402936527_1.jpg', title: '비가 오면 열리는 상점', userName: '책벌레', like: 4, reple: 1),
+    ListItem(img: '', title: '책 제목 0', userName: '작가 0', like: 6, reple: 2),
+    ListItem(img: '', title: '책 제목 0', userName: '작가 0', like: 4, reple: 7),
+    ListItem(img: '', title: '책 제목 0', userName: '작가 0', like: 4, reple: 1),
+    ListItem(img: '', title: '책 제목 0', userName: '작가 0', like: 4, reple: 1),
+  ];
