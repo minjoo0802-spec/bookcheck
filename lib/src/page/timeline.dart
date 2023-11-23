@@ -21,7 +21,6 @@ class TimeLinePage extends StatelessWidget {
       appBar: MainAppBar(),
        body: Column(
         children: [
-         
           Container(
             padding: EdgeInsets.all(10),
             child: CarouselSlider(
