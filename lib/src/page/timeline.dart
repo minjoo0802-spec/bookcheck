@@ -37,6 +37,26 @@ class TimeLinePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage('https://img.freepik.com/premium-vector/international-book-day-social-post-banner-template_657902-420.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage('https://4.bp.blogspot.com/-5SCJTyJb7Zg/XDOP2MV_pUI/AAAAAAAAV-g/HBAyOHd_4XQZ_RVNqX6wcUbrugi2-SGPgCLcBGAs/s1600/Book%2BBanners%2Bby%2BThe%2BBook%2BKhaleesi.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ],
               options: CarouselOptions(
                 aspectRatio: 2.0,

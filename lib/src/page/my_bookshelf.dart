@@ -26,12 +26,11 @@ class MyBookShelf extends StatelessWidget {
   final App app = App();
   final BookShelfController bookShelfController = Get.find();
 
-  final ServerConnect _server = ServerConnect();
+  //final ServerConnect _server = ServerConnect();
 
   final RxList<Book> books = <Book>[].obs;
 
   final BookReviewController bookReviewController = BookReviewController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -129,16 +128,9 @@ class MyBookShelf extends StatelessWidget {
                       Book book = bookShelfController.books[index];
                       return GestureDetector(
                         onTap: () async {
-                          print('id : $id');
-
-                          if(book.book_report.toString() == "") {
-                            print(book.book_report);
-                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => BookReportWritePage()));
-                          }
-
-                          //final response = await _server.sendUserIDIsbnReport(id, qrCode, "");
-
+                          print(book.book_report);
+                            Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => BookReportWritePage(index: index)));
                         },
                         child: Container(
                           decoration : BoxDecoration(

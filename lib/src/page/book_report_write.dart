@@ -1,11 +1,20 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
+import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:get/get.dart';
+
+import '../connect/server.dart';
+import '../model/book_shelf_model.dart';
 
 
 Color backgroundColor = Color.fromRGBO(255, 220, 210, 1);
 
 class BookReportWritePage extends StatefulWidget {
+  final int index;
+
+  BookReportWritePage({required this.index});
+
   @override
   _BookReportWritePageState createState() => _BookReportWritePageState();
 }
@@ -14,6 +23,9 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
   double _rating = 0.0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+
+  final ServerConnect _server = ServerConnect();
+  RxList<Book> books = <Book>[].obs;
 
 
   void changeBackgroundColor(Color color) {
@@ -24,6 +36,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
 
   @override
   Widget build(BuildContext context) {
+    //print(books[widget.index].book_title.toString());
     return Scaffold(
       appBar: PageAppBar(),
       body: SingleChildScrollView(
@@ -40,7 +53,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                   decoration: BoxDecoration(
                       image: const DecorationImage(
                           image: NetworkImage(
-                              'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
+                              'https://image.aladin.co.kr/product/16839/4/cover/k492534773_1.jpg'))),
                 ),
                 SizedBox(width: 20,),
                 Container(
@@ -57,7 +70,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                         enabled: false,
                         controller: _titleController,
                         decoration: InputDecoration(
-                          hintText: '책 제목을 입력하세요',
+                          hintText: "아몬드"
                         ),
                       ),
                       SizedBox(height: 16.0),
@@ -88,7 +101,8 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
               onPressed: () {
-                
+                _server.sendUserIDIsbnReport(id, qrCode, _contentController.text.toString());
+                print('id: $id, qrCode: $qrCode, report:${_contentController.text.toString()}');
               },
               child: Text('작성 완료',),
             ),
