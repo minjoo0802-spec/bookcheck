@@ -1,5 +1,6 @@
 import 'package:bookscan_1/src/controller/list_item_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
+import 'package:bookscan_1/src/page/timeline_click.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,46 +73,50 @@ class TimeLinePage extends StatelessWidget {
               child: ListView(
                 children: List.generate(5, (index) {
                   ListItem list = listItem[index];
-
-                  return SizedBox(
-                    height: 100,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Image.network(list.img),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text(
-                                  list.title,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text(list.userName),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Row(
-                                  children: [
-                                    Text('좋아요 수 ${list.like}'),
-                                    SizedBox(width: 100),
-                                    Text('댓글 수 ${list.reple}'),
-                                  ],
-                                ),
-                              ),
-                            ],
+                  return GestureDetector(
+                    onTap: () {
+                      _handleItemClick(context, index);
+                    },
+                    child: SizedBox(
+                      height: 100,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.network(list.img),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    list.title,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Text(list.userName),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    children: [
+                                      Text('좋아요 수 ${list.like}'),
+                                      SizedBox(width: 100),
+                                      Text('댓글 수 ${list.reple}'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -121,5 +126,10 @@ class TimeLinePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleItemClick(BuildContext context, int index) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TimeLineClickPage()));
   }
 }
