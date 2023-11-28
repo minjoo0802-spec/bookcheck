@@ -37,7 +37,7 @@ class PostDetailScreen extends StatelessWidget {
                   backgroundImage: NetworkImage('https://img.freepik.com/premium-vector/cute-bear-animal-icon_24911-4829.jpg'),
                 ),
                 title: Text('꿈꾸는 곰돌이'),
-                subtitle: Text('Caption for post 2'),
+                subtitle: Text('Caption for post 2                                              ❤️ 4'),
               ),
             ),
             // 댓글 목록
@@ -55,14 +55,14 @@ class PostDetailScreen extends StatelessWidget {
                       backgroundImage: NetworkImage('https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202306/25/488f9638-800c-4bac-ad65-82877fbff79b.jpg'),
                     ),
                     title: Text('현서01'),
-                    subtitle: Text('감동이에요ㅠㅠㅠ'),
+                    subtitle: Text('감동이에요ㅠㅠㅠ🫠'),
                   ),
                   ListTile(
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage('https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288873.jpg'),
                     ),
                     title: Text('밍주김'),
-                    subtitle: Text('아몬드 꼭 읽어봐야겠네요!!'),
+                    subtitle: Text('아몬드 꼭 읽어봐야겠네요!!💛'),
                   ),
                 ],
               ),
