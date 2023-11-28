@@ -1,4 +1,3 @@
-import 'package:bookscan_1/src/controller/list_item_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/post_detail_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';

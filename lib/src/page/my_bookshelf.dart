@@ -35,17 +35,26 @@ class MyBookShelf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: MainAppBar(),
       body: Obx(() {
         if (authController.isLoggedIn.value) {
           print('isLoggedIn = true');
           if (bookShelfController.books.isNotEmpty) {
             print('받은 데이터 띄우기');
-            return Column(
-              children: [
-                logOutBtn(),
-                myBookShelfMain(context),
-              ],
+            return Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/my_bookshelf_image/bookshelf_back.avif')
+                )
+              ),
+              child: Column(
+                children: [
+                  logOutBtn(),
+                  myBookShelfMain(context),
+                ],
+              ),
             );
           } 
           else {

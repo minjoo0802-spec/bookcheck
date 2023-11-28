@@ -90,29 +90,84 @@ class _BookInfo extends State<BookInfo> {
                         SizedBox(
                             height: 40,
                             width: 250,
-                            child: Text(
-                              '작가  : ${bookInfo.writer}',
-                              style: TextStyle(
-                                  fontSize: 15, fontFamily: 'basic_fonts'),
+                            child: RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: [
+                                  TextSpan(
+                                    text: '작가  : ',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: bookInfo.writer,
+                                    style: TextStyle(fontSize: 15),
+                                  )
+                                ]
+                              )
                             )),
                         SizedBox(
                           height: 40,
                           width: 250,
-                          child: Text(
-                            '출판사: ${bookInfo.publisher}',
-                            style: TextStyle(fontSize: 15),
+                          child: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: [
+                                TextSpan(
+                                  text: '출판사 : ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: bookInfo.publisher,
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ]
+                            ),
                           ),
                         ),
-                        Text(
-                          '판매가: ${bookInfo.price} 원',
-                          style: TextStyle(fontSize: 15),
+                        RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: [
+                              TextSpan(
+                                text: '판매가 : ',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: bookInfo.price.toString(),
+                                style: TextStyle(fontSize: 15),
+                              )
+                            ]
+                          ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          '평점: ${bookInfo.rating}',
-                          style: TextStyle(fontSize: 15),
+                        RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: [
+                              TextSpan(
+                                text: '평점 : ',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: bookInfo.rating.toString(),
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ]
+                          ),
                         ),
                         SizedBox(
                           height: 10,
@@ -126,16 +181,32 @@ class _BookInfo extends State<BookInfo> {
                   child: SizedBox(
                       width: 350,
                       height: 200,
-                      child: Text(
-                        '줄거리: ${bookInfo.summary}',
-                        style: TextStyle(fontSize: 15),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                            TextSpan(
+                              text: '줄거리 : ',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: bookInfo.summary,
+                              style: TextStyle(fontSize: 15),
+                            )
+                          ]
+                        ),
                       )),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 10),
-                  child: Text(
-                    '\u{1F4DA} 유사한 책들',
-                    style: TextStyle(fontSize: 18),
+                  child: Column(
+                    children: [
+                      
+                       _bookSimilar(),
+                    ],
                   ),
                 ),
               ],
@@ -149,45 +220,59 @@ class _BookInfo extends State<BookInfo> {
   Widget _bookSimilar() {
     final Uri toLaunch = Uri(scheme: 'https', host: 'www.10x10.co.kr');
 
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          _launchInBrowser(toLaunch);
-        },
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                Container(
-                  width: 120,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://image.aladin.co.kr/product/32575/8/cover500/k642935143_1.jpg'))),
-                ),
-                //SizedBox(width: 10,),
-                Container(
-                  width: 120,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://image.aladin.co.kr/product/32649/26/cover500/8954695973_1.jpg'))),
-                ),
-                Container(
-                  width: 120,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://image.aladin.co.kr/product/32591/29/cover500/k352935549_2.jpg'))),
-                ),
-              ],
+    return SizedBox(
+      width: 400,
+      height: 200,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '\u{1F4DA} 추천 책',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
+            GestureDetector(
+              onTap: () {
+                _launchInBrowser(toLaunch);
+              },
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.aladin.co.kr/product/32881/55/cover200/k392936211_1.jpg'))),
+                      ),
+                      //SizedBox(width: 10,),
+                      Container(
+                        width: 120,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.aladin.co.kr/product/27877/5/cover200/k692835315_2.jpg'))),
+                      ),
+                      Container(
+                        width: 120,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.aladin.co.kr/product/32875/68/cover200/k612936112_1.jpg'))),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -195,7 +280,9 @@ class _BookInfo extends State<BookInfo> {
 
   Widget _addBook(BuildContext context) {
     //final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    return FloatingActionButton.small(
+    return FloatingActionButton(
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
         child: const Text("+"),
         onPressed: () {
           if (authController.isLoggedIn.value == true) {
@@ -224,18 +311,27 @@ class _BookInfo extends State<BookInfo> {
     // final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     return Scaffold(
       appBar: PageAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _bookInfo(),
-            Expanded(child: _bookSimilar()),
-            _addBook(context),
-            //_getRequestBtn(context),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image:  AssetImage(
+                'assets/images/my_bookshelf_image/bookshelf_back.avif'),
+            fit: BoxFit.cover,
+                      
+          ),
         ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Column(
+            children: [
+              _bookInfo(),
+            ],
+          ),
+        ),
+        
       ),
+      floatingActionButton: _addBook(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

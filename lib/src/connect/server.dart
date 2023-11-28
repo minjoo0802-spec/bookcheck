@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:bookscan_1/src/model/book_info_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../controller/book_review_controller.dart';
-
 
 class ServerConnect {
-  final Uri _url = Uri.parse("http://10.101.127.93:3000");
+  final Uri _url = Uri.parse("http://10.101.220.62:3000");
   // isbn
   Future<void> sendBookData(String? isbn) async {
     try {

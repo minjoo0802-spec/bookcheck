@@ -61,7 +61,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("2024 별별일상 다이어리 (날짜형)"),
+                          child: Text("2024 별별일상 다이어리 (날짜형)",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -96,7 +100,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("(2024 날짜형) 위클리 플래너"),
+                          child: Text("(2024 날짜형) 위클리 플래너",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -131,8 +139,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("[Sanrio] 2024 산리오캐릭터즈 데스크 캘린더"),
-                        )
+                          child: Text("[Sanrio] 2024 산리오캐릭터즈 데스크 캘린더",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),                        ),
                       ],
                     ),
                   ),
@@ -166,7 +177,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 4),
-                          child: Text("2024 한정판 먼슬리매트 (날짜형) + 일정관리스티커"),
+                          child: Text("2024 한정판 먼슬리매트 (날짜형) + 일정관리스티커",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -201,7 +216,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("롱텀알람플래너 (체크리스트형 12개월 플래너)"),
+                          child: Text("롱텀알람플래너 (체크리스트형 12개월 플래너)",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -236,7 +255,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("[핑크풋] 꼬망가리개단어장"),
+                          child: Text("[핑크풋] 꼬망가리개단어장",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -271,7 +294,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("Plan B 스터디 플래너 ver.2"),
+                          child: Text("Plan B 스터디 플래너 ver.2",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
@@ -306,7 +333,11 @@ class Shop extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 6),
-                          child: Text("세계문학 북뱅크 독서통장"),
+                          child: Text("세계문학 북뱅크 독서통장",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
+                          )),
                         )
                       ],
                     ),
