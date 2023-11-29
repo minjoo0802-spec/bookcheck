@@ -88,7 +88,7 @@ class App extends GetView<BottomNavController> {
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.starOff),
                 activeIcon: ImageData(IconsPath.starOn),
-                label: '포인트샵',
+                label: '스토어',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.heartOff),

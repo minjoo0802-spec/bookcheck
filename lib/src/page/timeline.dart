@@ -2,8 +2,6 @@ import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/post_detail_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../model/list_item_model.dart';
 
 class TimeLinePage extends StatelessWidget {

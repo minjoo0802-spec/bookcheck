@@ -1,19 +1,12 @@
-import 'dart:convert';
 import 'package:bookscan_1/src/app.dart';
 import 'package:bookscan_1/src/controller/auth_controller.dart';
 import 'package:bookscan_1/src/helper/app_bar.dart';
-import 'package:bookscan_1/src/page/login.dart';
-import 'package:bookscan_1/src/page/my_bookshelf.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import '../connect/server.dart';
 import '../controller/book_review_controller.dart';
 import '../controller/bookshelf_controller.dart';
 import '../model/book_shelf_model.dart';
-import 'book_report_review.dart';
 import 'book_report_write.dart';
-import 'my_bookshelf.dart';
 
 
 late String? id, qrCode;

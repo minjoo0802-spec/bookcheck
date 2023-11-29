@@ -16,7 +16,7 @@ class Shop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Uri toLaunch = Uri(scheme: 'https', host: 'www.10x10.co.kr');
+    final Uri toLaunch = Uri(path: 'http://www.10x10.co.kr/shopping/category_prd.asp?itemid=5681476&disp=101102101102&pRtr=%EB%B3%84%EB%B3%84+%EC%9D%BC%EC%83%81+%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC&rc=rpos_1_1');
 
     return Scaffold(
       appBar: MainAppBar(),
@@ -34,7 +34,7 @@ class Shop extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    _launchInBrowser(toLaunch);
+                    _launchInBrowser(Uri.parse('http://www.10x10.co.kr/shopping/category_prd.asp?itemid=5681476&disp=101102101102&pRtr=%EB%B3%84%EB%B3%84+%EC%9D%BC%EC%83%81+%EB%8B%A4%EC%9D%B4%EC%96%B4%EB%A6%AC&rc=rpos_1_1'));
                   },
                   child: Container(
                     decoration: BoxDecoration(

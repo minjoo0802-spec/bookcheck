@@ -1,6 +1,5 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class PostDetailScreen extends StatelessWidget {
   final int index;
