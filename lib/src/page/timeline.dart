@@ -127,6 +127,10 @@ class TimeLinePage extends StatelessWidget {
 
   void _handleItemClick(BuildContext context, int index) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PostDetailScreen(index: index,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => PostDetailScreen(
+                  index: index,
+                )));
   }
 }

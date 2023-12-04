@@ -46,18 +46,18 @@ class _CodeScanState extends State<CodeScan> {
     super.dispose();
   }
 
-  Widget btn1() {
-    return ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BookReportWritePage(
-                        index: 0,
-                      )));
-        },
-        child: Text("독후감 작성 페이지"));
-  }
+  // Widget btn1() {
+  //   return ElevatedButton(
+  //       onPressed: () {
+  //         Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //                 builder: (context) => BookReportWritePage(
+  //                       index: 0,
+  //                     )));
+  //       },
+  //       child: Text("독후감 작성 페이지"));
+  // }
 
   // Widget btn2() {
   //   return ElevatedButton(
@@ -166,7 +166,7 @@ class _CodeScanState extends State<CodeScan> {
               },
               child: Text('Scan Again'),
             ),
-          btn1(),
+          //btn1(),
           //btn2(),
         ]),
       ),

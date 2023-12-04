@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../connect/server.dart';
 import '../model/book_shelf_model.dart';
 
-
 Color backgroundColor = Color.fromRGBO(255, 220, 210, 1);
 
 class BookReportWritePage extends StatefulWidget {
@@ -26,7 +25,6 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
 
   final ServerConnect _server = ServerConnect();
   RxList<Book> books = <Book>[].obs;
-
 
   void changeBackgroundColor(Color color) {
     setState(() {
@@ -55,7 +53,9 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                           image: NetworkImage(
                               'https://image.aladin.co.kr/product/16839/4/cover/k492534773_1.jpg'))),
                 ),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 Container(
                   height: 150,
                   width: 200,
@@ -69,9 +69,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                       TextFormField(
                         enabled: false,
                         controller: _titleController,
-                        decoration: InputDecoration(
-                          hintText: "아몬드"
-                        ),
+                        decoration: InputDecoration(hintText: "아몬드"),
                       ),
                       SizedBox(height: 16.0),
                       Text('평점'),
@@ -94,47 +92,51 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
               controller: _contentController,
               maxLines: 5,
               decoration: InputDecoration(
-                hintText: '독후감 내용을 입력하세요',
+                hintText:
+                    '이 이야기의 주인공인 윤재는 태어났을 때부터 감정을 느끼지 못하는 감정표현불능증을 가지고 있다. 감정을 느끼지 못한다는 것은 어떤 느낌일까? 사람들은 모두 감정을 느끼며 살아간다. 처음 윤재가 감정을 느끼지 못한다는 사실을 알았을 때 나는 조금이나마 윤재가 부럽다는 생각을 하였다. 사사로운 감정에 휘말리지 않고 이성적으로 일 할 수 있을 것만 같았다. 하지만 읽을 수록 아픔도, 슬픔도 기쁨도 느끼지 못하는 윤재는 너무 슬퍼보였다. 이 책을 다 읽고 나니 감정을 가지고 있다는 것에 감사한 마음을 갖게 되었다.',
               ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
               onPressed: () {
-                _server.sendUserIDIsbnReport(id, qrCode, _contentController.text.toString());
-                print('id: $id, qrCode: $qrCode, report:${_contentController.text.toString()}');
+                _server.sendUserIDIsbnReport(
+                    id, qrCode, _contentController.text.toString());
+                print(
+                    'id: $id, qrCode: $qrCode, report:${_contentController.text.toString()}');
               },
-              child: Text('작성 완료',),
+              child: Text(
+                '작성 완료',
+              ),
             ),
-            SizedBox(height: 20,),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("배경색 선택"),
-                          content: SingleChildScrollView(
-                            child: ColorPicker(
-                              pickerColor: backgroundColor,
-                              onColorChanged: changeBackgroundColor,
-                              pickerAreaHeightPercent: 0.8,
-                            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("배경색 선택"),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: backgroundColor,
+                            onColorChanged: changeBackgroundColor,
+                            pickerAreaHeightPercent: 0.8,
                           ),
-                          actions: <Widget>[
-                            FloatingActionButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              })
-                          ],
-                        );
-                      });
-                }, 
-                child: Text("배경색 변경"),),
-
-
+                        ),
+                        actions: <Widget>[
+                          FloatingActionButton(onPressed: () {
+                            Navigator.of(context).pop();
+                          })
+                        ],
+                      );
+                    });
+              },
+              child: Text("배경색 변경"),
+            ),
           ],
-          
         ),
       ),
     );
