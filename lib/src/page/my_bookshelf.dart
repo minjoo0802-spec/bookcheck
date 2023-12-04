@@ -168,6 +168,7 @@ Widget _buildBookItem(Book book) {
   return Card(
     elevation: 0,
     child: ListView(
+      //활성화시 아이템 순서 거꾸로
       //reverse: true,
       scrollDirection: Axis.vertical,
       children: [
