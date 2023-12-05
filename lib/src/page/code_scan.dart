@@ -1,6 +1,5 @@
 import 'package:bookscan_1/src/helper/app_bar.dart';
 import 'package:bookscan_1/src/page/book_info.dart';
-import 'package:bookscan_1/src/page/book_report_write.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 

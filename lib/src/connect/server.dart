@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 
 class ServerConnect {
-  final Uri _url = Uri.parse("http://10.101.220.62:3000");
+  final Uri _url = Uri.parse("http://10.101.86.210:3000");
   // isbn
   Future<void> sendBookData(String? isbn) async {
     try {

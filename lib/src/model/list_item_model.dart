@@ -16,7 +16,7 @@ class ListItem {
 final List<ListItem> listItem = [
   ListItem(
       img:
-          'https://image.aladin.co.kr/product/31893/32/cover500/k212833749_2.jpg',
+          'https://image.aladin.co.kr/product/16839/4/cover/k492534773_1.jpg',
       title: '아몬드',
       userName: '꿈꾸는 곰돌이',
       like: 4,

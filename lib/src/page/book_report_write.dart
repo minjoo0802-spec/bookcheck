@@ -104,6 +104,13 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                     id, qrCode, _contentController.text.toString());
                 print(
                     'id: $id, qrCode: $qrCode, report:${_contentController.text.toString()}');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyBookShelf(
+                            
+                          )));    
+                
               },
               child: Text(
                 '작성 완료',
