@@ -34,7 +34,6 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
 
   @override
   Widget build(BuildContext context) {
-    //print(books[widget.index].book_title.toString());
     return Scaffold(
       appBar: PageAppBar(),
       body: SingleChildScrollView(
@@ -107,9 +106,7 @@ class _BookReportWritePageState extends State<BookReportWritePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MyBookShelf(
-                            
-                          )));    
+                      builder: (context) => MyBookShelf()));    
                 
               },
               child: Text(

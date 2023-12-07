@@ -158,6 +158,4 @@ class ServerConnect {
       return http.Response('Error : $e', 500);
     }
   }
-  
-
 }
